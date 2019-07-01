@@ -44,7 +44,7 @@ class Converter
 
     public static function isCashaddr($address)
     {
-        $regex = '/^[bitcoincash|bchtest|bchreg]:?[qp]{1}[02-9ac-hj-np-z]{41}$/';
+        $regex = '/^((bitcoincash|bchtest|bchreg):?)[qp]{1}[02-9ac-hj-np-z]{41}$/';
         return preg_match($regex, $address);
     }
 
