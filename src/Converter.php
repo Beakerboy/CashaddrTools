@@ -90,7 +90,7 @@ class Converter
     public static function getNumberHashBits($address)
     {
         $hash_size = self::getHashSize($address);
-        return $hash_size < 4 ? 160 + 32 * $hash_size : 64 * ($hash_size + 1)
+        return $hash_size < 4 ? 160 + 32 * $hash_size : 64 * ($hash_size + 1);
     }
 
     /**
