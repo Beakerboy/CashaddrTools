@@ -35,7 +35,6 @@ class Converter
      */
     public static function toLegacy($address)
     {
-    
     }
 
     public static function toCashaddr($address)
