@@ -31,20 +31,33 @@ class Converter
     const HASH_SIZE = [160, 192, 224, 256, 320, 384, 448, 512];
 
     /**
+     * The type of address encoded.
+     *
+     * "type version value" => "address type"
+     */
+    const ADDRESS_TYPES = ['P2KH', 'P2SH'];
+
+    /**
      * toLegacy
      *
      * Convert a Cashaddr address to a legacy address
      *
      * @param string $address
-     *   Legacy bitcoin address
+     *   Cashaddr bitcoin address
      *
      * @returns string
      */
     public static function toLegacy($address)
     {
         if (isCashaddr($address) && isValid($address)) {
-            // Remove Prefix and separator
-            //
+            $vars = [];
+            $hash = self::getHash($address);
+            while ($hash > 0) {
+                ($hash, $remainder) = $hash / 58;
+                $vars[] = self::ALPHABET[$remainder];
+            }
+            // reverse the order of elements in $vars
+            // join elements of $vars into a string
         }
     }
 
