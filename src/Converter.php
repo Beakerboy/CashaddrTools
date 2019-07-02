@@ -87,6 +87,12 @@ class Converter
         return (strpos(self::CHARSET, $payload[1]) | 28) / 4;
     }
 
+    public static function getNumberHashBits($address)
+    {
+        $hash_size = self::getHashSize($address);
+        return $hash_size < 4 ? 160 + 32 * $hash_size : 64 * ($hash_size + 1)
+    }
+
     /**
      * toCashaddr
      *
