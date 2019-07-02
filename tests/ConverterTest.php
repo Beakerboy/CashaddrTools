@@ -143,4 +143,30 @@ class ConverterTest extends \PHPUnit\Framework\TestCase
             [64, 15, 'prefix:0lg0x333p4238k0qrc5ej7rzfw5g8e4a4r6vvzyrcy8j3s5k0en7calvclhw46hudk5flttj6ydvjc0pv3nchp52amk97tqa5zygg96ms92w6845', 'D0F346310D5513D9E01E299978624BA883E6BDA8F4C60883C10F28C2967E67EC77ECC7EEEAEAFC6DA89FAD72D11AC961E164678B868AEEEC5F2C1DA08884175B'],
         ];
     }
+
+    /**
+     * Test checksum generation
+     *
+     * These test addresses do not contaon a valid payload,
+     * but do have valid checksums.
+     *
+     * @dataProvider dataProviderForChecksum
+     */
+    public function testChecksum($address)
+    {
+        // $vars = \CashaddrTools\TestConverter::getByteArray($address);
+        // $checksum = \CashaddrTools\TestConverter::polymod($vars);
+        // $this->assertEquals(0, $checksum);
+    }
+
+    public function dataProviderForChecksum()
+    {
+        return [
+            ['prefix:x64nx6hz'],
+            ['p:gpf8m4h7'],
+            ['bitcoincash:qpzry9x8gf2tvdw0s3jn54khce6mua7lcw20ayyn'],
+            ['bchtest:testnetaddress4d6njnut'],
+            ['bchreg:555555555555555555555555555555555555555555555udxmlmrz'],
+        ];
+    }
 }
