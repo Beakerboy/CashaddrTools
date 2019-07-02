@@ -191,7 +191,7 @@ class Converter
 
         // Address has an optional prefix, which must have a colon after it followed by the payload.
         // The payload must be the set of base32 alphanumerics.
-        $regex = '/^(([0-9a-z]*):)?[02-9ac-hj-np-z]*$/';
+        $regex = '/^(([0-9a-z]*):)?[02-9ac-hj-np-z]{42,112}$/';
         return preg_match($regex, $address) === 1;
     }
 
@@ -230,7 +230,7 @@ class Converter
             return false;
         }
 
-        // Are any hash padding bits zero
+        // Verify any hash padding bits are zero
         if ($padding > 0) {
             $padding_value = substr($payload, -6, 1) & (2 ** $padding - 1);
             if ($padding_value !== 0) {
