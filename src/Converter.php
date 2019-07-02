@@ -162,7 +162,7 @@ class Converter
     {
         // check if legacy format
         $len = strlen($address);
-        $hash = 0
+        $hash = 0;
         for ($i = 0; $i < $len; $i++) {
             $hash = $hash * 58 + strpos(self::ALPHABET, $address[0]);
         }
