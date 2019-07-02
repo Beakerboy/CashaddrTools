@@ -268,6 +268,9 @@ class Converter
         }
         
         // Does the checksum match
+        if (self::polymod(self::toByteArray($address)) !== 0) {
+            return false;
+        }
         return true;
     }
 
