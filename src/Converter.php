@@ -211,19 +211,8 @@ class Converter
         $payload = self::getPayload($address);
         $version = 8;
         $hash = self::getNumberHashBits($address);
-        $padding = 0;
-        switch ($hash) {
-            case 0:
-                $padding = 2;
-                break;
-            case 2:
-                $padding = 3;
-                break;
-            default:
-                $padding = (($hash - 192) / 64) % 5;
-                break;
-        }
-                
+        $padding_array = [2, 0, 3, 1, 2, 3, 4, 0];
+        $padding = $padding_array[self::getHashVersion($address)];
         $checksum = 40;
         $expected_bits = $version + $hash + $padding + $checksum;
         if (strlen($payload) * 5 !== $expected_bits) {
