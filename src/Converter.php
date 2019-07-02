@@ -220,6 +220,8 @@ class Converter
      */
     public static function isValidCashAddr($address)
     {
+        $address = strtolower($address);
+        
         // MSB of version byte must be 0
         if (self::getTypeVersion($address) > 15) {
             return false;
