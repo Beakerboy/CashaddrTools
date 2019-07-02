@@ -126,7 +126,7 @@ class Converter
     public static function isValidCashAddr()
     {
         // MSB of version byte must be 0
-        if (self::getVersion() > 127) {
+        if (self::getType() > 15) {
             return false;
         }
     }
