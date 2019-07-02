@@ -55,8 +55,6 @@ class ConverterTest extends \PHPUnit\Framework\TestCase
             ['bitcoincas:qpm2qsznhks23z7629mms6s4cwef74vcwvy22gdx6a'],
             // Wrong separator
             ['bitcoincash;qpm2qsznhks23z7629mms6s4cwef74vcwvy22gdx6a'],
-            // Wrong first character
-            ['bitcoincash:spm2qsznhks23z7629mms6s4cwef74vcwvy22gdx6a'],
             // Disallowed character
             ['qbm2qsznhks23z7629mms6s4cwef74vcwvy22gdx6a'],
             // Payload too long
