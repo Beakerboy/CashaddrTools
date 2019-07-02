@@ -51,11 +51,11 @@ class Converter
         $prefix = self::getPrefix($address);
         $payload = self::getPayload($address);
         $var = [];
-        for($i = 0; $i < strlen($prefix); $i++) {
+        for ($i = 0; $i < strlen($prefix); $i++) {
             $var[] = ord($prefix[$i]) & 31;
         }
         $var[] = 0;
-        for($i = 0; $i < strlen($payload); $i++) {
+        for ($i = 0; $i < strlen($payload); $i++) {
             $var[] = strpos(self::CHARSET, $payload[$i]);
         }
         return $var;
