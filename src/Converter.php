@@ -53,7 +53,7 @@ class Converter
             $vars = [];
             $hash = self::getHash($address);
             while ($hash > 0) {
-                ($hash, $remainder) = $hash / 58;
+                // ($hash, $remainder) = $hash / 58;
                 $vars[] = self::ALPHABET[$remainder];
             }
             // reverse the order of elements in $vars
