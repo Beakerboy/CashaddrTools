@@ -58,7 +58,7 @@ class ConverterTest extends \PHPUnit\Framework\TestCase
             // Wrong first character
             ['bitcoincash:spm2qsznhks23z7629mms6s4cwef74vcwvy22gdx6a'],
             // Disallowed character
-            ['qlm2qsznhks23z7629mms6s4cwef74vcwvy22gdx6a'],
+            ['qbm2qsznhks23z7629mms6s4cwef74vcwvy22gdx6a'],
             // Payload too long
             ['bitcoincash:qpm2qsznhks23z7629mms6s4cwef74vcwvy22gdx6aa'],
         ];
