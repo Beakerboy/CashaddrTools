@@ -66,7 +66,8 @@ class ConverterTest extends \PHPUnit\Framework\TestCase
      */
     public function testLarge($hash_size, $type, $address, $payload)
     {
-        $this->assertEquals($hash_size * 8, Converter::getNumberHashBits($address));
+        $hash_version = $hash_size < 40 ? intdiv($hash_size - 20, 4) : intdiv($hash_size, 8) - 1;
+        $this->assertEquals($hash_version, Converter::getHashSize($address));
         $this->assertEquals($type, Converter::getType($address));
     }
 
