@@ -89,7 +89,7 @@ class ConverterTest extends \PHPUnit\Framework\TestCase
             // Padding is not zeros
             ['bitcoincash:qpm2qsznhks23z7629mms6s4cwef74vcwdy22gdx6a'],
             // Checksum does not match
-            //['bitcoincash:qpm2qsznhks23z7629mms6s4cwef74vcwvy22gdx6q'],
+            ['bitcoincash:qpm2qsznhks23z7629mms6s4cwef74vcwvy22gdx6q'],
         ];
     }
 
