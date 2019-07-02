@@ -66,7 +66,7 @@ class ConverterTest extends \PHPUnit\Framework\TestCase
      */
     public function testLarge($payload_size, $type, $address, $payload)
     {
-        $this->assertEqual($type, Converter::getType($address));
+        $this->assertEquals($type, Converter::getType($address));
     }
 
     public function dataProviderForLarge()
