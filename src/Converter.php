@@ -35,9 +35,34 @@ class Converter
      */
     public static function toLegacy($address)
     {
+        if (isCashaddr($address) && isValid($address))
+        {
+            // Remove Prefix and separator
+            // 
+        }
     }
 
-    public static function toCashaddr($address)
+    public static function getVersion($address)
+    {
+    }
+
+    public static function getAddressType($address)
+    {
+    }
+
+    public static function getHashSize($address)
+    {
+    }
+
+    /**
+     * toCashaddr
+     *
+     * Convert a legacy address to cashaddr format
+     *
+     * @param string $address
+     * @return string
+     */
+    public static function toCashaddr(string $address): string
     {
     }
 
