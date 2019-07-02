@@ -61,7 +61,7 @@ class ConverterTest extends \PHPUnit\Framework\TestCase
             // Too Short
             ['bitcoincash:qpm2qsznhks23z7'],
             // Too long
-            ['bitcoincash:qpm2qsznhks23z7qpm2qsznhks23z7qpm2qsznhks23z7qpm2qsznhks23z7'],
+            ['bitcoincash:qpm2qsznhks23z7qpm2qsznhks23z7qpm2qsznhks23z7qpm2qsznhks23z7qpm2qsznhks23z7qpm2qsznhks23z7qpm2qsznhks23z7qpm2qsznhks23z7'],
             // no payload
             ['bitcoincash:'],
             // prefix only
