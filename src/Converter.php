@@ -69,7 +69,7 @@ class Converter
     {
         $payload = self::getPayload($address);
         $type_bit = $payload[0];
-        $type_value = strpos(self::CHARSET, $type_bit);
+        return strpos(self::CHARSET, $type_bit);
     }
 
     /**
