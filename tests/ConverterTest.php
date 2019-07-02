@@ -5,12 +5,16 @@ use CashaddrTools\Converter;
 
 class ConverterTest extends \PHPUnit\Framework\TestCase
 {
+    /**
+     * @testCase testIsCashaddr()
+     * @dataProvider dataProviderForTestIsCashaddr
+     */
     public function testIsCashaddr($address, $legacy)
     {
         $this->assertTrue(Converter::isCashaddr($address));
     }
 
-    public function dataproviderForTestIsCashaddr()
+    public function dataProviderForTestIsCashaddr()
     {
         return[
             [
