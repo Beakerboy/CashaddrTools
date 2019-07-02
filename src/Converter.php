@@ -7,7 +7,7 @@ use CashaddrTools\ConverterException;
 /**
  * Cashaddr Converter
  *
- * Converts legacy Bitcoin Cash addresses to the new CashAddr format and vice versa.
+ * Functions to describe and manipulate cashaddr formatted bitcoin addresses.
  *
  * https://www.bitcoincash.org/spec/cashaddr.html
  */
@@ -19,10 +19,15 @@ class Converter
     const ALPHABET = '123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz';
 
     /**
-     *  Th 32 characters allowed in a Cashaddr formatted address
+     *  The 32 characters allowed in a Cashaddr formatted address
      */
     const CHARSET = 'qpzry9x8gf2tvdw0s3jn54khce6mua7l';
 
+    /**
+     * The expected size of the public key hash.
+     *
+     * "hash version value" => "hash bits"
+     */
     const HASH_SIZE = [160, 192, 224, 256, 320, 384, 448, 512];
 
     /**
@@ -49,7 +54,7 @@ class Converter
      * The payload is all the content after the prefix and the seperator
      *
      * @param string $address
-     * @returns string
+     * @returns string in base32 encoding
      */
     public static function getPayload($address)
     {
@@ -66,7 +71,7 @@ class Converter
      * The public key hash is all the bits between the version and the checksum
      *
      * @param string @address
-     * @returns string
+     * @returns string in base16 encoding
      */
     public function getHash($address): string
     {
@@ -80,13 +85,21 @@ class Converter
      * address type, and the final three, the hash length.
      *
      * @param string $address
-     * @return bool
+     * @return int - decimal value of the first 8 bits
      */
     public static function getVersion(string $address)
     {
         return self::getTypeVersion($address) * 8 + self::getHashVersion($address);
     }
 
+    /**
+     * Get the address type bits
+     *
+     * The type bits are the 4 least significant bits of the first character of the payload
+     *
+     * @param string $address
+     * @return int - decimal value of the first 5 bits
+     */
     public static function getTypeVersion($address)
     {
         $payload = self::getPayload($address);
@@ -97,11 +110,11 @@ class Converter
     /**
      * Get the hash size
      *
-     * The hash size is specified in the address version bit
-     * as the first three bytes of the second Base32 character.
+     * The hash version is specified in the address version byte
+     * as the first three bites of the second Base32 character in the payload.
      *
      * @param string $address
-     * @return int
+     * @return int - decimal value of the 3 hash size bits
      */
     public static function getHashVersion(string $address): int
     {
@@ -112,8 +125,8 @@ class Converter
     /**
      * Get the number of hash bits
      *
-     * The hash size is specified in the address version bit
-     * as the first three bytes of the second Base32 character.
+     * The hash size is specified in the address version byte
+     * as the first three bits of the second Base32 character in the payload.
      *
      * @param string $address
      * @return int
