@@ -81,13 +81,13 @@ class Converter
      * @param string $address
      * @return int
      */
-    public static function getHashSize($address)
+    public static function getHashSize(string $address): int
     {
         $payload = self::getPayload($address);
-        return (strpos(self::CHARSET, $payload[1]) | 28) / 4;
+        return intdiv((strpos(self::CHARSET, $payload[1]) | 28), 4);
     }
 
-    public static function getNumberHashBits($address)
+    public static function getNumberHashBits(string $address): int
     {
         $hash_size = self::getHashSize($address);
         return $hash_size < 4 ? 160 + 32 * $hash_size : 64 * ($hash_size + 1);
