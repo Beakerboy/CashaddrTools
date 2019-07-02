@@ -9,6 +9,12 @@ use CashaddrTools\ConverterException;
  *
  * Functions to describe and manipulate cashaddr formatted bitcoin addresses.
  *
+ * The cashaddr format is:
+ * ((prefix):)?(payload)
+ *
+ * The bitwise payload format is:
+ * |0|4 type bits|3 hash-size bits|hash|optional padding|40 checksum bits|
+ *
  * https://www.bitcoincash.org/spec/cashaddr.html
  */
 class Converter
@@ -233,7 +239,9 @@ class Converter
 
         // Verify any hash padding bits are zero
         if ($padding > 0) {
-            $padding_value = substr($payload, -6, 1) & (2 ** $padding - 1);
+            $padding_byte_value = strpos(self::CHARSET, $payload[-6]);
+            $padding_mask = (2 ** $padding - 1);
+            $padding_value = $padding_byte_value & $padding_mask;
             if ($padding_value !== 0) {
                 return false;
             }
