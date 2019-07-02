@@ -56,4 +56,5 @@ class ConverterTest extends \PHPUnit\Framework\TestCase
             // Payload too long
             ['bitcoincash:qpm2qsznhks23z7629mms6s4cwef74vcwvy22gdx6aa'],
         ];
+    }
 }
