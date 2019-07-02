@@ -50,19 +50,41 @@ class Converter
         return substr($address, $seperator + 1);
     }
 
-    public static function getVersion($address)
+    /**
+     * Get the address version
+     *
+     * The version is stored in the first 8 bits of the address.
+     * The fist bit should be a 0. The next four indicate the
+     * address type, and the final three, the hash length.
+     *
+     * @param string $address
+     * @return bool
+     */
+    public static function getVersion(string $address)
+    {
+        return self::getType($address) * 8 + self::getHashSize($address);
+    }
+
+    public static function getType($address)
     {
         $payload = self::getPayload($address);
-        $version_bit = $payload[0];
-        return strpos(self::CHARSET, $version_bit);
+        $type_bit = $payload[0];
+        $type_value = strpos(self::CHARSET, $type_bit);
     }
 
-    public static function getAddressType($address)
-    {
-    }
-
+    /**
+     * Get the hash size
+     *
+     * The hash size is specified in the address version bit
+     * as the first three bytes of the second Base32 character.
+     *
+     * @param string $address
+     * @return int
+     */
     public static function getHashSize($address)
     {
+        $payload = self::getPayload($address);
+        return (strpos(self::CHARSET, $payload[1]) | 28) / 4;
     }
 
     /**
@@ -103,6 +125,10 @@ class Converter
 
     public static function isValidCashAddr()
     {
+        // MSB of version byte must be 0
+        if (self::getVersion() > 127) {
+            return false;
+        }
     }
 
     /**
