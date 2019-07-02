@@ -3,7 +3,7 @@ namespace CashaddrTools;
 
 class TestConverter extends Converter
 {
-    public static function Polymod($x)
+    public static function polymod($x)
     {
         return parent::Polymod($x);
     }
