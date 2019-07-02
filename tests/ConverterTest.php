@@ -64,8 +64,9 @@ class ConverterTest extends \PHPUnit\Framework\TestCase
      * @testCase Test Large Format
      * @dataProvider dataProviderForLarge
      */
-    public function testLarge($payload_size, $type, $address, $payload)
+    public function testLarge($hash_size, $type, $address, $payload)
     {
+        $this->assertEquals($hash_size * 8, Converter::getNumberHashBits($address));
         $this->assertEquals($type, Converter::getType($address));
     }
 
