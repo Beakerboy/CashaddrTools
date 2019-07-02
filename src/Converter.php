@@ -84,7 +84,7 @@ class Converter
     public static function getHashSize(string $address): int
     {
         $payload = self::getPayload($address);
-        return intdiv((strpos(self::CHARSET, $payload[1]) | 28), 4);
+        return intdiv((strpos(self::CHARSET, $payload[1]) & 28), 4);
     }
 
     public static function getNumberHashBits(string $address): int
