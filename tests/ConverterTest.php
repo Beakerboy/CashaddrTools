@@ -58,6 +58,27 @@ class ConverterTest extends \PHPUnit\Framework\TestCase
             ['bitcoincash;qpm2qsznhks23z7629mms6s4cwef74vcwvy22gdx6a'],
             // Disallowed character
             ['qbm2qsznhks23z7629mms6s4cwef74vcwvy22gdx6a'],
+            // Too Short
+            ['bitcoincash:qpm2qsznhks23z7'],
+            // Too long
+            ['bitcoincash:qpm2qsznhks23z7qpm2qsznhks23z7qpm2qsznhks23z7qpm2qsznhks23z7'],
+        ];
+    }
+
+    /**
+     * @testCase testIsNotValidCashaddr()
+     * @dataProvider dataProviderForTestIsNotValidCashaddr
+     */
+    public function testIsNotValidCashaddr($address)
+    {
+        $this->assertFalse(Converter::isValidCashaddr($address));
+    }
+
+    public function dataProviderForTestIsNotValidCashaddr()
+    {
+        return[
+            // First bit is not zero
+            ['bitcoincash:6pm2qsznhks23z7629mms6s4cwef74vcwvy22gdx6a'],
         ];
     }
 
