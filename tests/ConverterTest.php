@@ -76,7 +76,7 @@ class ConverterTest extends \PHPUnit\Framework\TestCase
     public function dataProviderForLarge()
     {
         return [
-            [20, 0, 'bitcoincash:qr6m7j9njldwwzlg9v7v53unlr4jkmx6eylep8ekg2', 'F5BF48B397DAE70BE82B3CCA4793F8EB2B6CDAC9'],
+            [20, 0, 'qr6m7j9njldwwzlg9v7v53unlr4jkmx6eylep8ekg2', 'F5BF48B397DAE70BE82B3CCA4793F8EB2B6CDAC9'],
             [20, 1, 'bchtest:pr6m7j9njldwwzlg9v7v53unlr4jkmx6eyvwc0uz5t', 'F5BF48B397DAE70BE82B3CCA4793F8EB2B6CDAC9'],
             [20, 1, 'pref:pr6m7j9njldwwzlg9v7v53unlr4jkmx6ey65nvtks5', 'F5BF48B397DAE70BE82B3CCA4793F8EB2B6CDAC9'],
             [20, 15, 'prefix:0r6m7j9njldwwzlg9v7v53unlr4jkmx6ey3qnjwsrf', 'F5BF48B397DAE70BE82B3CCA4793F8EB2B6CDAC9'],
