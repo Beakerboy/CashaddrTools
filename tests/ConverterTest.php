@@ -64,11 +64,13 @@ class ConverterTest extends \PHPUnit\Framework\TestCase
      * @testCase Test Large Format
      * @dataProvider dataProviderForLarge
      */
-    public function testLarge($hash_size, $type, $address, $payload)
+    public function testLarge($hash_bytes, $type, $address, $hash)
     {
-        $hash_version = $hash_size < 40 ? intdiv($hash_size - 20, 4) : intdiv($hash_size, 8) - 1;
+        $hash_version = $hash_bytes < 40 ? intdiv($hash_bytes - 20, 4) : intdiv($hash_bytes, 8) - 1;
         $this->assertEquals($hash_version, Converter::getHashVersion($address));
+        $this->assertEquals($hash_bytes * 8, Converter::getNumberHashBits($address));
         $this->assertEquals($type, Converter::getTypeVersion($address));
+        // $this->assertEquals($hash, Converter::getHash($address));
     }
 
     public function dataProviderForLarge()
