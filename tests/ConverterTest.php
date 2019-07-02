@@ -52,7 +52,7 @@ class ConverterTest extends \PHPUnit\Framework\TestCase
             // Mix of cases
             ['bitcoincash:Qpm2qsznhks23z7629mms6s4cwef74vcwvy22gdx6A'],
             // Wrong Prefix
-            ['bitcoincas1:qpm2qsznhks23z7629mms6s4cwef74vcwvy22gdx6a'],
+            ['bitcoincas^:qpm2qsznhks23z7629mms6s4cwef74vcwvy22gdx6a'],
             // Wrong separator
             ['bitcoincash;qpm2qsznhks23z7629mms6s4cwef74vcwvy22gdx6a'],
             // Disallowed character
