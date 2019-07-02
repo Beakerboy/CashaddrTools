@@ -241,7 +241,7 @@ class Converter
 
         // Verify any hash padding bits are zero
         if ($padding > 0) {
-            $padding_byte_value = strpos(self::CHARSET, $payload[-6]);
+            $padding_byte_value = strpos(self::CHARSET, $payload[-9]);
             $padding_mask = (2 ** $padding - 1);
             $padding_value = $padding_byte_value & $padding_mask;
             if ($padding_value !== 0) {
