@@ -2,7 +2,7 @@ php
 
 namespace CashaddrTools;
 
-use CashaddrTools\Exceptions\ConverterException;
+use CashaddrTools\ConverterException;
 
 /**
  * Cashaddr Converter
