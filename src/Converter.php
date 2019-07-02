@@ -70,7 +70,7 @@ class Converter
         if ($seperator === false) {
             return 'bitcoincash';
         }
-        return substr($address, 0, $seperator + 1);
+        return substr($address, 0, $seperator);
     }
 
     /**
@@ -215,7 +215,7 @@ class Converter
     public static function isValidCashAddr($address)
     {
         // MSB of version byte must be 0
-        if (self::getType() > 15) {
+        if (self::getTypeVersion() > 15) {
             return false;
         }
 
