@@ -220,7 +220,7 @@ class Converter
                 $padding = 3;
                 break;
             default:
-                $padding = ($hash - 192) / 64) % 5;
+                $padding = (($hash - 192) / 64) % 5;
                 break;
         }
                 
