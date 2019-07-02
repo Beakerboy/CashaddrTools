@@ -44,6 +44,24 @@ class Converter
     const ADDRESS_TYPES = ['P2KH', 'P2SH'];
 
     /**
+     * To Byte Array
+     */
+    public static function toByteArray($address)
+    {
+        $prefix = self::getPrefix($address);
+        $payload = self::getPayload($address);
+        $var = [];
+        for($i = 0; $i < strlen($prefix); $i++) {
+            $var[] = ord($prefix[$i]) & 31;
+        }
+        $var[] = 0;
+        for($i = 0; $i < strlen($payload); $i++) {
+            $var[] = strpos(self::CHARSET, $payload[$i]);
+        }
+        return $var;
+    }
+
+    /**
      * toLegacy
      *
      * Convert a Cashaddr address to a legacy address
