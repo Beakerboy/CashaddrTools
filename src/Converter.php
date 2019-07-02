@@ -206,7 +206,38 @@ class Converter
         if (self::getType() > 15) {
             return false;
         }
-        // Do the number of bits in the version match the number in the address
+
+        // Do the number of bits in the address match expectations
+        $payload = self::getPayload($address);
+        $version = 8;
+        $hash = self::getNumberHashBits($address);
+        $padding = 0;
+        switch ($hash) {
+            case 0:
+                $padding = 2;
+                break;
+            case 2:
+                $padding = 3;
+                break;
+            default:
+                $padding = ($hash - 192) / 64) % 5;
+                break;
+        }
+                
+        $checksum = 40;
+        $expected_bits = $version + $hash + $padding + $checksum;
+        if (strlen($payload) * 5 !== $expected_bits) {
+            return false;
+        }
+
+        // Are any hash padding bits zero
+        if ($padding > 0) {
+            $padding_value = substr($payload, -6, 1) & (2 ** $padding - 1);
+            if ($padding_value !== 0) {
+                return false;
+            }
+        }
+        
         // Does the checksum match
     }
 
