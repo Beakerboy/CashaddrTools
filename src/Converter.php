@@ -35,10 +35,9 @@ class Converter
      */
     public static function toLegacy($address)
     {
-        if (isCashaddr($address) && isValid($address))
-        {
+        if (isCashaddr($address) && isValid($address)) {
             // Remove Prefix and separator
-            // 
+            //
         }
     }
 
