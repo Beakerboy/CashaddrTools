@@ -62,6 +62,18 @@ class Converter
     }
 
     /**
+     * Get the address prefix
+     */
+    public static function getPrefix($address)
+    {
+        $seperator = strpos($address, ':');
+        if ($seperator === false) {
+            return 'bitcoincash';
+        }
+        return substr($address, 0, $seperator + 1);
+    }
+
+    /**
      * Get the payload
      *
      * The payload is all the content after the prefix and the seperator
