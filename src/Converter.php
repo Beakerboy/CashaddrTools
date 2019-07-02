@@ -43,6 +43,14 @@ class Converter
         }
     }
 
+    /**
+     * Get the payload
+     *
+     * The payload is all the content after the prefix and the seperator
+     *
+     * @param string $address
+     * @returns string
+     */
     public static function getPayload($address)
     {
         $seperator = strpos($address, ':');
@@ -50,6 +58,18 @@ class Converter
             return $address;
         }
         return substr($address, $seperator + 1);
+    }
+
+    /**
+     * Get the hash
+     *
+     * The public key hash is all the bits between the version and the checksum
+     *
+     * @param string @address
+     * @returns string
+     */
+    public function getHash($address): string
+    {
     }
 
     /**
@@ -89,6 +109,15 @@ class Converter
         return intdiv((strpos(self::CHARSET, $payload[1]) & 28), 4);
     }
 
+    /**
+     * Get the number of hash bits
+     *
+     * The hash size is specified in the address version bit
+     * as the first three bytes of the second Base32 character.
+     *
+     * @param string $address
+     * @return int
+     */
     public static function getNumberHashBits(string $address): int
     {
         $hash_version = self::getHashVersion($address);
@@ -105,6 +134,15 @@ class Converter
      */
     public static function toCashaddr(string $address): string
     {
+        // check if legacy format
+        $len = strlen($address);
+        $hash = 0
+        for ($i = 0; $i < $len; $i++) {
+            $hash = $hash * 58 + strpos(self::ALPHABET, $address[0]);
+        }
+        // Prepend prefix, separator, version
+        // Append 8 checksum zero bits
+        // Generate checksum
     }
 
     /**
@@ -131,12 +169,38 @@ class Converter
         return preg_match($regex, $address) === 1;
     }
 
-    public static function isValidCashAddr()
+    /**
+     * Is the CashAddr address valid
+     *
+     * Check the internal structure of the suppled address to ensure it matches the specification
+     */
+    public static function isValidCashAddr($address)
     {
         // MSB of version byte must be 0
         if (self::getType() > 15) {
             return false;
         }
+        // Do the number of bits in the version match the number in the address
+        // Does the checksum match
+    }
+
+    /**
+     * Is the address hash valid
+     *
+     * Check the structure of the address hash to ensure it meets the Bitcoin specification.
+     */
+    public static function isValidHash($address)
+    {
+    }
+
+    /**
+     * Fix a broken Cashaddr address
+     *
+     * The checksum allows up to 5 bitwise errors in an address.
+     * If errors are detected, return the correct address
+     */
+    public static function fixAddress(string $address): string
+    {
     }
 
     /**
