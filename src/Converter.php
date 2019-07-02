@@ -228,6 +228,7 @@ class Converter
         }
         
         // Does the checksum match
+        return true;
     }
 
     /**
