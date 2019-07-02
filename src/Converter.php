@@ -61,7 +61,7 @@ class Converter
 
         // Address has an optional prefix, which must have a colon after it followed by the payload.
         // The payload must start with a p or q and be followed by the set of base32 alphanumerics.
-        $regex = '/^((bitcoincash|bchtest|bchreg):?)[qp]{1}[02-9ac-hj-np-z]{41}$/';
+        $regex = '/^((bitcoincash|bchtest|bchreg):)?[qp]{1}[02-9ac-hj-np-z]{41}$/';
         return preg_match($regex, $address) === 1;
     }
 
