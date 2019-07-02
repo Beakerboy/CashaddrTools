@@ -27,6 +27,10 @@ class ConverterTest extends \PHPUnit\Framework\TestCase
                 '1BpEi6DfDAUFd7GtittLSdBeYJvcoaVggu',
             ],
             [
+                'QPM2QSZNHKS23Z7629MMS6S4CWEF74VCWVY22GDX6A',
+                '1BpEi6DfDAUFd7GtittLSdBeYJvcoaVggu',
+            ],
+            [
                 'bitcoincash:qr95sy3j9xwd2ap32xkykttr4cvcu7as4y0qverfuy',
                 '1KXrWXciRDZUpQwQmuM1DbwsKDLYAYsVLR',
             ],
@@ -45,6 +49,8 @@ class ConverterTest extends \PHPUnit\Framework\TestCase
     public function dataProviderForTestIsNotCashaddr()
     {
         return[
+            // Mix of cases
+            ['bitcoincash:Qpm2qsznhks23z7629mms6s4cwef74vcwvy22gdx6A'],
             // Wrong Prefix
             ['bitcoincas:qpm2qsznhks23z7629mms6s4cwef74vcwvy22gdx6a'],
             // Wrong separator
