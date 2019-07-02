@@ -85,8 +85,8 @@ class Converter
         $address = strtolower($address);
 
         // Address has an optional prefix, which must have a colon after it followed by the payload.
-        // The payload must start with a p or q and be followed by the set of base32 alphanumerics.
-        $regex = '/^(([a-z].*):)?[02-9ac-hj-np-z]{42}$/';
+        // The payload must be the set of base32 alphanumerics.
+        $regex = '/^(([a-z].*):)?[02-9ac-hj-np-z].*$/';
         return preg_match($regex, $address) === 1;
     }
 
