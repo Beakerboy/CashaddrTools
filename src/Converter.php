@@ -23,6 +23,8 @@ class Converter
      */
     const CHARSET = 'qpzry9x8gf2tvdw0s3jn54khce6mua7l';
 
+    const HASH_SIZE = [160, 192, 224, 256, 320, 384, 448, 512];
+
     /**
      * toLegacy
      *
@@ -62,10 +64,10 @@ class Converter
      */
     public static function getVersion(string $address)
     {
-        return self::getType($address) * 8 + self::getHashSize($address);
+        return self::getTypeVersion($address) * 8 + self::getHashVersion($address);
     }
 
-    public static function getType($address)
+    public static function getTypeVersion($address)
     {
         $payload = self::getPayload($address);
         $type_bit = $payload[0];
@@ -81,7 +83,7 @@ class Converter
      * @param string $address
      * @return int
      */
-    public static function getHashSize(string $address): int
+    public static function getHashVersion(string $address): int
     {
         $payload = self::getPayload($address);
         return intdiv((strpos(self::CHARSET, $payload[1]) & 28), 4);
@@ -89,8 +91,8 @@ class Converter
 
     public static function getNumberHashBits(string $address): int
     {
-        $hash_size = self::getHashSize($address);
-        return $hash_size < 4 ? 160 + 32 * $hash_size : 64 * ($hash_size + 1);
+        $hash_version = self::getHashVersion($address);
+        return self::HASH_SIZE[$hash_version];
     }
 
     /**
