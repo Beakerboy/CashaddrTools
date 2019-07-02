@@ -5,6 +5,6 @@ class TestConverter extends Converter
 {
     public static function polymod($x)
     {
-        return parent::Polymod($x);
+        return parent::polymod($x);
     }
 }
