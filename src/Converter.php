@@ -13,12 +13,12 @@ use CashaddrTools\ConverterException;
  */
 class Converter
 {
-    /** 
+    /**
      *  The 58 characters allowed in a legacy formatted address
      */
     const ALPHABET = '123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz';
 
-    /** 
+    /**
      *  Th 32 characters allowed in a Cashaddr formatted address
      */
     const CHARSET = 'qpzry9x8gf2tvdw0s3jn54khce6mua7l';
@@ -33,12 +33,12 @@ class Converter
      *
      * @returns string
      */
-    public static toLegacy($address)
+    public static function toLegacy($address)
     {
     
     }
 
-    public static toCashaddr($address)
+    public static function toCashaddr($address)
     {
     }
 
@@ -66,7 +66,7 @@ class Converter
         return preg_match($regex, $address);
     }
 
-    public static function isValid()
+    public static function isValidCashAddr()
     {
     }
 }
