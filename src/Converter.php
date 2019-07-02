@@ -99,7 +99,7 @@ class Converter
      * @param array $v an array of 5 bit numbers
      * @return a 40 bit number
      */ 
-    private static function polymod($v)
+    protected static function polymod($v)
     {
         $c = 1;
         foreach ($v as $d) {
