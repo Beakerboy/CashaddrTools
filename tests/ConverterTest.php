@@ -83,6 +83,12 @@ class ConverterTest extends \PHPUnit\Framework\TestCase
         return[
             // First bit is not zero
             ['bitcoincash:6pm2qsznhks23z7629mms6s4cwef74vcwvy22gdx6a'],
+            // Too many chars for given hash size
+            ['bitcoincash:qpm2qsznhks23z7629mms6s4cwef74vcwvy22gdx6aq'],
+            // Padding is not zeros
+            ['bitcoincash:qpm2qsznhks23z7629mms6s4cwef74vcwvy2zgdx6a'],
+            // Checksum does not match
+            ['bitcoincash:qpm2qsznhks23z7629mms6s4cwef74vcwvy22gdx6q'],
         ];
     }
 
