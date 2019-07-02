@@ -41,8 +41,20 @@ class Converter
         }
     }
 
+    public static function getPayload($address)
+    {
+        $seperator = strpos($address, ':');
+        if ($seperator === false) {
+            return $address;
+        }
+        return substr($address, $seperator + 1);
+    }
+
     public static function getVersion($address)
     {
+        $payload = self::getPayload($address);
+        $version_bit = $payload[0];
+        return strpos(self::CHARSET, $version_bit);
     }
 
     public static function getAddressType($address)
