@@ -144,18 +144,28 @@ class Converter
      *
      * @param array $v an array of 5 bit numbers
      * @return a 40 bit number
-     */ 
+     */
     protected static function polymod($v)
     {
         $c = 1;
         foreach ($v as $d) {
             $c0 = $c >> 35;
             $c = (($c & 0x07ffffffff) << 5) ^ $d;
-            if ($c0 & 0x01) $c ^= 0x98f2bc8e61;
-            if ($c0 & 0x02) $c ^= 0x79b76d99e2;
-            if ($c0 & 0x04) $c ^= 0xf33e5fb3c4;
-            if ($c0 & 0x08) $c ^= 0xae2eabe2a8;
-            if ($c0 & 0x10) $c ^= 0x1e4f43e470;
+            if ($c0 & 0x01) {
+                $c ^= 0x98f2bc8e61;
+            }
+            if ($c0 & 0x02) {
+                $c ^= 0x79b76d99e2;
+            }
+            if ($c0 & 0x04) {
+                $c ^= 0xf33e5fb3c4;
+            }
+            if ($c0 & 0x08) {
+                $c ^= 0xae2eabe2a8;
+            }
+            if ($c0 & 0x10) {
+                $c ^= 0x1e4f43e470;
+            }
         }
         return $c ^ 1;
     }
