@@ -14,6 +14,7 @@ class ConverterTest extends \PHPUnit\Framework\TestCase
         $this->assertTrue(Converter::isCashaddr($address));
         $this->assertTrue(Converter::isValidCashaddr($address));
         $this->assertEquals('bitcoincash', Converter::getPrefix($address));
+        $this->assertEquals(1, Converter::getVersion($address));
         // $this->assertEquals($legacy, Converter::toLegacy($address));
     }
 
