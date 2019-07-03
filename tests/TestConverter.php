@@ -8,7 +8,7 @@ namespace CashaddrTools;
  */
 class TestConverter extends Converter
 {
-    public static function getByteArray($x)
+    public static function toByteArray($x)
     {
         return parent::toByteArray($x);
     }
