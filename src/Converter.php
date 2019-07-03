@@ -139,7 +139,7 @@ class Converter
         if ($padding > 0) {
             $binary_hash = substr($binary_hash, 0, -1 * $padding);
         }
-        return $binary_hash
+        return $binary_hash;
     }
 
     /**
