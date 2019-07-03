@@ -124,6 +124,18 @@ class Converter
      */
     public function getHash($address): string
     {
+        $hex_codes = [0,1,2,3,4,5,6,7,8,9,'A','B','C','D','E','F'];
+        $payload = self::getPayload($address);
+        $binary_hash = decbin(strpos($payload[2]) & 3);
+        for ($i = 3; $i < strlen($payload); $i++) {
+            $binary_hash .= decbin(strpos($payload[$i])).
+        }
+        $hash = "";
+        for ($i = 1; $i <= ceil(strlen($binary_hash) / 4); $i++) {
+            $bin = substr($binary_hash, min(0,strlen($binary_hash) - 4 * $i), 4);
+            $hash = bindec($bin) . $hash;
+        }
+        return $hash;
     }
 
     /**
