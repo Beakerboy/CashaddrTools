@@ -154,6 +154,9 @@ class Converter
     public static function getHash($address): string
     {
         $binary_hash = self::getBinaryHash($address);
+        if (strlen($binary_hash) !== self::getNumberHashBits($address)) {
+            throw \Exception;
+        }
         $hash = "";
         while (strlen($binary_hash) > 4) {
             $nibble = substr($binary_hash, -4);
