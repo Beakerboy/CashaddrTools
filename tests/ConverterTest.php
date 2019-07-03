@@ -156,7 +156,7 @@ class ConverterTest extends \PHPUnit\Framework\TestCase
      */
     public function testChecksum($address)
     {
-        $vars = \CashaddrTools\TestConverter::getByteArray($address);
+        $vars = \CashaddrTools\TestConverter::toByteArray($address);
         $checksum = \CashaddrTools\TestConverter::polymod($vars);
         $this->assertEquals(0, $checksum);
     }
