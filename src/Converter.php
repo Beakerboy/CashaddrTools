@@ -128,7 +128,7 @@ class Converter
     {
         $payload = self::getPayload($address);
         $binary_hash = decbin(strpos(self::CHARSET, $payload[1]) & 3);
-        str_pad($binary_hash, 2, "0", STR_PAD_LEFT);
+        $binary_hash = str_pad($binary_hash, 2, "0", STR_PAD_LEFT);
         for ($i = 2; $i < strlen($payload) - 8; $i++) {
             // 5 bit binary 'nibble'.
             $nibblet = decbin(strpos(self::CHARSET, $payload[$i]));
