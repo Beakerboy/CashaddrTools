@@ -76,6 +76,21 @@ class Converter
         if (isCashaddr($address) && isValid($address)) {
             $vars = [];
             $hash = self::getHash($address);
+
+            // Add version byte
+            // pubkey hash = 0x00, script hash = 0x05
+            $version_array = ['00', '05'];
+            $type = self::getType($address);
+            $hash = $version_array[self::getTypeVersion($address)] . $hash;
+
+            //Double hash the extended hash
+            // $sha = SHA(SHA($hash)); 
+
+            // Append first 4 bytes of the double hash to the extended hash.
+            $checksum = substr($sha, 0, 8);
+            $hash .= $checksum;
+
+            // Perform Base58 Encoding
             while ($hash > 0) {
                 // ($hash, $remainder) = $hash / 58;
                 $vars[] = self::ALPHABET[$remainder];
@@ -313,15 +328,6 @@ class Converter
             return false;
         }
         return true;
-    }
-
-    /**
-     * Is the address hash valid
-     *
-     * Check the structure of the address hash to ensure it meets the Bitcoin specification.
-     */
-    public static function isValidHash($address)
-    {
     }
 
     /**
