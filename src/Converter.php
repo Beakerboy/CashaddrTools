@@ -114,6 +114,18 @@ class Converter
         return substr($address, $seperator + 1);
     }
 
+    public static getBinaryHash($address)
+    {
+        $payload = self::getPayload($address);
+        $binary_hash = decbin(strpos(self::CHARSET, $payload[2]) & 3);
+        for ($i = 3; $i < strlen($payload) - 8; $i++) {
+            $binary_hash .= decbin(strpos(self::CHARSET, $payload[$i]));
+        }
+        $padding_array = [2, 0, 3, 1, 2, 3, 4, 0];
+        $padding = $padding_array[self::getHashVersion($address)];
+        return substr($binary_hash, 0, -1 * $padding);
+    }
+
     /**
      * Get the hash
      *
@@ -124,17 +136,14 @@ class Converter
      */
     public static function getHash($address): string
     {
-        $hex_codes = [0,1,2,3,4,5,6,7,8,9,'A','B','C','D','E','F'];
-        $payload = self::getPayload($address);
-        $binary_hash = decbin(strpos(self::CHARSET, $payload[2]) & 3);
-        for ($i = 3; $i < strlen($payload); $i++) {
-            $binary_hash .= decbin(strpos(self::CHARSET, $payload[$i]));
-        }
+        $binary_hash = self::getBinaryHash($address);
         $hash = "";
-        for ($i = 1; $i <= ceil(strlen($binary_hash) / 4); $i++) {
-            $bin = substr($binary_hash, min(0,strlen($binary_hash) - 4 * $i), 4);
-            $hash = bindec($bin) . $hash;
+        while (strlen($binary_hash) > 4) {
+            $nibble = substr($binary_hash, -4);
+            $binary_hash = substr($binary_hash, 0, -4);
+            $hash = dechex(bindec($nibble)) . $hash;
         }
+        $hash = dechex(bindec($binary_hash)) . $hash;
         return $hash;
     }
 
