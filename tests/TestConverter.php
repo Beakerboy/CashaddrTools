@@ -10,7 +10,7 @@ class TestConverter extends Converter
 {
     public static function getByteArray($x)
     {
-        return parent::getByteArray($x);
+        return parent::toByteArray($x);
     }
 
     public static function polymod($x)
