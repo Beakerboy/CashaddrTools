@@ -140,7 +140,7 @@ class Converter
      * @param string @address
      * @return string in base2 encoding
      */
-    public static function getBinaryHash(string $address): string
+    public static function getBinaryHash(string $address, $raw_data = false): string
     {
         $payload = self::getPayload($address);
         $binary_hash = decbin(strpos(self::CHARSET, $payload[1]) & 3);
@@ -162,7 +162,8 @@ class Converter
     /**
      * Get the hash
      *
-     * The public key hash is all the bits between the version and the checksum
+     * The public key hash is all the bits between the version and the checksum, minus the
+     * optional padding.
      *
      * @param string @address
      * @return string in base16 encoding
@@ -170,9 +171,7 @@ class Converter
     public static function getHash($address): string
     {
         $binary_hash = self::getBinaryHash($address);
-        if (strlen($binary_hash) !== self::getNumberHashBits($address)) {
-            throw new ConverterException("Incorrect number of binary digits");
-        }
+        
         $hash = "";
         while (strlen($binary_hash) > 4) {
             $nibble = substr($binary_hash, -4);
