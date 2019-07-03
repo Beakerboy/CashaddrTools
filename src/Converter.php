@@ -155,7 +155,7 @@ class Converter
     {
         $binary_hash = self::getBinaryHash($address);
         if (strlen($binary_hash) !== self::getNumberHashBits($address)) {
-            throw \Exception;
+            throw new ConverterException("Incorrect number of binary digits");
         }
         $hash = "";
         while (strlen($binary_hash) > 4) {
