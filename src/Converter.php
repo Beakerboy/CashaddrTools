@@ -84,10 +84,11 @@ class Converter
             $hash = $version_array[self::getTypeVersion($address)] . $hash;
 
             //Double hash the extended hash
-            // $sha = SHA(SHA($hash)); 
+            $sha1 = hash('sha256', pack("H*", $hash));
+            $sha2 = hash('sha256', pack("H*", $sha1));
 
             // Append first 4 bytes of the double hash to the extended hash.
-            $checksum = substr($sha, 0, 8);
+            $checksum = substr($sha2, 0, 8);
             $hash .= $checksum;
 
             // Perform Base58 Encoding
