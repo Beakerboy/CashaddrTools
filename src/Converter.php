@@ -114,7 +114,17 @@ class Converter
         return substr($address, $seperator + 1);
     }
 
-    public static getBinaryHash($address)
+    /**
+     * Get the hash in binary
+     *
+     * The public key hash is all the bits between the version and the checksum
+     * This is a string represetation of the binary digits.
+     * Would things be better if it were actually in binary?
+     *
+     * @param string @address
+     * @returns string in base2 encoding
+     */
+    public static function getBinaryHash(string $address): string
     {
         $payload = self::getPayload($address);
         $binary_hash = decbin(strpos(self::CHARSET, $payload[2]) & 3);
