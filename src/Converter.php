@@ -128,7 +128,7 @@ class Converter
         $payload = self::getPayload($address);
         $binary_hash = decbin(strpos($payload[2]) & 3);
         for ($i = 3; $i < strlen($payload); $i++) {
-            $binary_hash .= decbin(strpos($payload[$i]));
+            $binary_hash .= decbin(strpos(self::CHARSET, $payload[$i]));
         }
         $hash = "";
         for ($i = 1; $i <= ceil(strlen($binary_hash) / 4); $i++) {
