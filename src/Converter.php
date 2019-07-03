@@ -126,7 +126,7 @@ class Converter
     {
         $hex_codes = [0,1,2,3,4,5,6,7,8,9,'A','B','C','D','E','F'];
         $payload = self::getPayload($address);
-        $binary_hash = decbin(strpos($payload[2]) & 3);
+        $binary_hash = decbin(strpos(self::CHARSET, $payload[2]) & 3);
         for ($i = 3; $i < strlen($payload); $i++) {
             $binary_hash .= decbin(strpos(self::CHARSET, $payload[$i]));
         }
