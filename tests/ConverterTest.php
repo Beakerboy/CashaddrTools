@@ -105,7 +105,7 @@ class ConverterTest extends \PHPUnit\Framework\TestCase
         $this->assertEquals($hash_version, Converter::getHashVersion($address));
         $this->assertEquals($hash_bytes * 8, Converter::getNumberHashBits($address));
         $this->assertEquals($type, Converter::getTypeVersion($address));
-        $this->assertEquals($hash, Converter::getHash($address));
+        $this->assertEquals(strtolower($hash), Converter::getHash($address));
     }
 
     public function dataProviderForLarge()
