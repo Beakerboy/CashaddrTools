@@ -136,7 +136,10 @@ class Converter
         }
         $padding_array = [2, 0, 3, 1, 2, 3, 4, 0];
         $padding = $padding_array[self::getHashVersion($address)];
-        return substr($binary_hash, 0, -1 * $padding);
+        if ($padding > 0) {
+            $binary_hash = substr($binary_hash, 0, -1 * $padding);
+        }
+        return $binary_hash
     }
 
     /**
