@@ -132,7 +132,7 @@ class Converter
             // 5 bit binary 'nibble'.
             $nibblet = decbin(strpos(self::CHARSET, $payload[$i]));
             $nibblet = str_pad($nibblet, 5, "0", STR_PAD_LEFT);
-            $binary_hash .= decbin(strpos(self::CHARSET, $payload[$i]));
+            $binary_hash .= $nibblet;
         }
         $padding_array = [2, 0, 3, 1, 2, 3, 4, 0];
         $padding = $padding_array[self::getHashVersion($address)];
