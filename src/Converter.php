@@ -127,9 +127,9 @@ class Converter
     public static function getBinaryHash(string $address): string
     {
         $payload = self::getPayload($address);
-        $binary_hash = decbin(strpos(self::CHARSET, $payload[2]) & 3);
+        $binary_hash = decbin(strpos(self::CHARSET, $payload[1]) & 3);
         str_pad($binary_hash, 2, "0", STR_PAD_LEFT);
-        for ($i = 3; $i < strlen($payload) - 8; $i++) {
+        for ($i = 2; $i < strlen($payload) - 8; $i++) {
             // 5 bit binary 'nibble'.
             $nibblet = decbin(strpos(self::CHARSET, $payload[$i]));
             $nibblet = str_pad($nibblet, 5, "0", STR_PAD_LEFT);
