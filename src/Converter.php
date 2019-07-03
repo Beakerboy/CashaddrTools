@@ -69,7 +69,7 @@ class Converter
      * @param string $address
      *   Cashaddr bitcoin address
      *
-     * @returns string
+     * @return string
      */
     public static function toLegacy($address)
     {
@@ -103,7 +103,7 @@ class Converter
      * The payload is all the content after the prefix and the seperator
      *
      * @param string $address
-     * @returns string in base32 encoding
+     * @return string in base32 encoding
      */
     public static function getPayload($address)
     {
@@ -122,7 +122,7 @@ class Converter
      * Would things be better if it were actually in binary?
      *
      * @param string @address
-     * @returns string in base2 encoding
+     * @return string in base2 encoding
      */
     public static function getBinaryHash(string $address): string
     {
@@ -148,7 +148,7 @@ class Converter
      * The public key hash is all the bits between the version and the checksum
      *
      * @param string @address
-     * @returns string in base16 encoding
+     * @return string in base16 encoding
      */
     public static function getHash($address): string
     {
@@ -252,7 +252,7 @@ class Converter
      * @param string $address
      *   bitcoin address
      *
-     * @returns boolean
+     * @return boolean
      */
     public static function isCashaddr($address)
     {
