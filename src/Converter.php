@@ -255,10 +255,15 @@ class Converter
     {
         // check if legacy format
         $len = strlen($address);
+
+        // Convert to hex
         $hash = 0;
         for ($i = 0; $i < $len; $i++) {
             $hash = $hash * 58 + strpos(self::ALPHABET, $address[0]);
         }
+
+        // Remove checksum (check the checksum to ensure valididty?)
+        // Inspect the version byte and remove.
         // Prepend prefix, separator, version
         // Append 8 checksum zero bits
         // Generate checksum
