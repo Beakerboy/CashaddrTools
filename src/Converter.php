@@ -45,6 +45,11 @@ class Converter
 
     /**
      * To Byte Array
+     *
+     * The array is a series of integers. We keep the first
+     * 5 bits of each character in the prefix. We use a zero
+     * for the colon, and the 5 bit value of each payload
+     * character.
      */
     public static function toByteArray($address)
     {
@@ -52,6 +57,8 @@ class Converter
         $payload = self::getPayload($address);
         $var = [];
         for ($i = 0; $i < strlen($prefix); $i++) {
+            // ASCII value of each prefix character
+            // with 0b11111 = 31
             $var[] = ord($prefix[$i]) & 31;
         }
         $var[] = 0;
@@ -137,7 +144,7 @@ class Converter
      * This is a string represetation of the binary digits.
      * Would things be better if it were actually in binary?
      *
-     * @param string @address
+     * @param string $address
      * @return string in base2 encoding
      */
     public static function getBinaryHash(string $address, $raw_data = false): string
@@ -162,7 +169,7 @@ class Converter
      * The public key hash is all the bits between the version and the checksum, minus the
      * optional padding.
      *
-     * @param string @address
+     * @param string $address
      * @return string in base16 encoding
      */
     public static function getHash($address): string
