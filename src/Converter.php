@@ -146,7 +146,7 @@ class Converter
         $binary_hash = sprintf('%02b',  strpos(self::CHARSET, $payload[1]) & 3);
         for ($i = 2; $i < strlen($payload) - 8; $i++) {
             // 5 bit binary 'nibble'.
-            $binary_hash .= sprintf('%05b',  strpos(self::CHARSET, $payload[$i])));
+            $binary_hash .= sprintf('%05b',  strpos(self::CHARSET, $payload[$i]));
         }
         $padding_array = [2, 0, 3, 1, 2, 3, 4, 0];
         $padding = $padding_array[self::getHashVersion($address)];
