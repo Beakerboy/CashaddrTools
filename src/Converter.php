@@ -143,7 +143,7 @@ class Converter
     public static function getBinaryHash(string $address, $raw_data = false): string
     {
         $payload = self::getPayload($address);
-        $binary_hash = sprintf('%02b',  strpos(self::CHARSET, $payload[1]) & 3);
+        $binary_hash = sprintf('%02b', strpos(self::CHARSET, $payload[1]) & 3);
         for ($i = 2; $i < strlen($payload) - 8; $i++) {
             // 5 bit binary 'nibble'.
             $binary_hash .= sprintf('%05b', strpos(self::CHARSET, $payload[$i]));
