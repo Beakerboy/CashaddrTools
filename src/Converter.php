@@ -143,13 +143,10 @@ class Converter
     public static function getBinaryHash(string $address, $raw_data = false): string
     {
         $payload = self::getPayload($address);
-        $binary_hash = decbin(strpos(self::CHARSET, $payload[1]) & 3);
-        $binary_hash = str_pad($binary_hash, 2, "0", STR_PAD_LEFT);
+        $binary_hash = sprintf('%02b',  strpos(self::CHARSET, $payload[1]) & 3);
         for ($i = 2; $i < strlen($payload) - 8; $i++) {
             // 5 bit binary 'nibble'.
-            $nibblet = decbin(strpos(self::CHARSET, $payload[$i]));
-            $nibblet = str_pad($nibblet, 5, "0", STR_PAD_LEFT);
-            $binary_hash .= $nibblet;
+            $binary_hash .= sprintf('%05b',  strpos(self::CHARSET, $payload[$i])));
         }
         $padding_array = [2, 0, 3, 1, 2, 3, 4, 0];
         $padding = $padding_array[self::getHashVersion($address)];
