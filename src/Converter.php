@@ -394,26 +394,33 @@ class Converter
     }
 
     /**
-     * Abitrary Precision Integer Division
+     * Abitrary precision, arbitrary base integer division
      *
+     * Each character in each string is a digit in a particular base system.
+     * The value of the digit is the ascii code of the digit.
      *
+     * Since the character "0" has ASCII code 48, we can set an offset of 48
+     * example longDivide("127", "3", 10, 48) = "42"
+     *
+     * 
+     * longDivide("ABG", "C", 10, 65) = "42"
      */
-    function longDivide($dividend, $divisor, $base = 256): array
+    protected static function longDivide(string $dividend, string $divisor, int $base = 256, $offset = 0): array
     {
         $length = strlen($dividend);
         $mod = 0;
         $int = "";
         $remove_leading_zero = true;
         for ($i = 0; $i < $length; $i++) {
-            $place_value = ord($dividend[$i]) + $base * $mod;
+            $place_value = ord($dividend[$i]) - $offset + $base * $mod;
             if (!$remove_leading_zero || !$place_value == 0) {
-                $step_int = chr(intdiv($place_value, ord($divisor)));
+                $step_int = chr(intdiv($place_value, ord($divisor) - $offset));
                 
                 // Don't add new leading zeros.
                 if (!$remove_leading_zero || $step_int != 0) {
                     $int .= $step_int;
                 }
-                $mod = $place_value % ord($divisor);
+                $mod = $place_value % (ord($divisor) - $offset);
                 $remove_leading_zero = false;
             }
         }
