@@ -405,7 +405,7 @@ class Converter
      * 
      * longDivide("ABG", "C", 10, 65) = "42"
      */
-    protected static function longDivide(string $dividend, string $divisor, int $base = 256, $offset = 0): array
+    protected static function longDivide(string $dividend, string $divisor, int $base = 256, int $offset = 0): array
     {
         $length = strlen($dividend);
         $mod = 0;
