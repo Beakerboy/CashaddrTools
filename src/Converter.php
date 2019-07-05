@@ -400,7 +400,7 @@ class Converter
      */
     private static function longDivide($dividend, $divisor, $base = 256): string
     {
-        $length = strlen($dividened);
+        $length = strlen($dividend);
         $mod = 0;
         $int = "";
         $remove_leading_zero = true;
