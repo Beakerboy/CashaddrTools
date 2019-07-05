@@ -398,7 +398,7 @@ class Converter
      *
      *
      */
-    private static function longDivide($dividend, $divisor, $base = 256): array
+    function longDivide($dividend, $divisor, $base = 256): array
     {
         $length = strlen($dividend);
         $mod = 0;
@@ -407,9 +407,14 @@ class Converter
         for ($i = 0; $i < $length; $i++) {
             $place_value = ord($dividend[$i]) + $base * $mod;
             if (!$remove_leading_zero || !$place_value == 0) {
+                $step_int = chr(intdiv($place_value, ord($divisor)));
+                
+                // Don't add new leading zeros.
+                if (!$remove_leading_zero || $step_int != 0) {
+                    $int .= $step_int;
+                }
+                $mod = $place_value % ord($divisor);
                 $remove_leading_zero = false;
-                $int .= chr(intdiv($place_value, ord($divisor)));
-                $mod = ord($dividend[$i]) + $base * $mod % ord($divisor);
             }
         }
         return [$int, $mod];
