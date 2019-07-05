@@ -82,29 +82,28 @@ class Converter
     {
         if (isCashaddr($address) && isValid($address)) {
             $vars = [];
-            $hash = self::getHash($address);
+            $hash = self::getBinaryHash($address, true);
 
             // Add version byte
             // pubkey hash = 0x00, script hash = 0x05
-            $version_array = ['00', '05'];
+            $version_array = [chr('ox00'), chr('0x05')];
             $type = self::getType($address);
             $hash = $version_array[self::getTypeVersion($address)] . $hash;
 
             //Double hash the extended hash
-            $sha1 = hash('sha256', pack("H*", $hash));
-            $sha2 = hash('sha256', pack("H*", $sha1));
+            $sha1 = hash('sha256', $hash, true);
+            $sha2 = hash('sha256', $sha1);
 
             // Append first 4 bytes of the double hash to the extended hash.
-            $checksum = substr($sha2, 0, 8);
+            $checksum = substr($sha2, 0, 4);
             $hash .= $checksum;
-
+            $wif = "";
             // Perform Base58 Encoding
-            while ($hash > 0) {
-                // ($hash, $remainder) = $hash / 58;
-                $vars[] = self::ALPHABET[$remainder];
+            while ($hash !== chr(0)) {
+                list($hash, $char) = longDivide($hash, 58);
+                $wif = $char . $wif;
             }
-            // reverse the order of elements in $vars
-            // join elements of $vars into a string
+            return $wif;
         }
     }
 
@@ -153,12 +152,26 @@ class Converter
         $binary_hash = sprintf('%02b', strpos(self::CHARSET, $payload[1]) & 3);
         for ($i = 2; $i < strlen($payload) - 8; $i++) {
             // 5 bit binary 'nibble'.
-            $binary_hash .= sprintf('%05b', strpos(self::CHARSET, $payload[$i]));
+            $nibblet = sprintf('%05b', strpos(self::CHARSET, $payload[$i]));
+            $binary_hash .= $nibblet
         }
         $padding_array = [2, 0, 3, 1, 2, 3, 4, 0];
         $padding = $padding_array[self::getHashVersion($address)];
         if ($padding > 0) {
             $binary_hash = substr($binary_hash, 0, -1 * $padding);
+        }
+
+        // Convert string to binary data
+        if ($raw_data) {
+            $hash_length = strlen($binary_hash);
+            $raw_hash = "";
+            while ($hash_length >= 8) {
+                // Pop the first 8 bits off and convert to ASCII
+                $raw_hash .= chr(bindec(substr($binary_hash, 0, 8)));
+                $binary_hash = substr($binary_hash, 8);
+                $hash_length -= 8;
+            }
+            return $raw_hash;
         }
         return $binary_hash;
     }
@@ -378,5 +391,27 @@ class Converter
             }
         }
         return $c ^ 1;
+    }
+
+    /**
+     * Abitrary Precision Integer Division
+     *
+     *
+     */
+    private static function longDivide($dividend, $divisor, $base = 256): string
+    {
+        $length = strlen($dividened);
+        $mod = 0;
+        $int = "";
+        $remove_leading_zero = true
+        for ($i = 0; $i < $length; $i++) {
+            $place_value = ord($dividend[$i]) + $base * $mod;
+            if (!$remove_leading_zero || !$place_value == 0) {
+                $remove_leading_zero = false;
+                $int .= chr(intdiv($place_value, $divisor));
+                $mod = ord($dividend[$i]) + $base * $mod % $divisor;
+            }
+        }
+        return [$int, $mod];
     }
 }
