@@ -80,7 +80,7 @@ class Converter
      */
     public static function toLegacy($address)
     {
-        if (isCashaddr($address) && isValid($address)) {
+        if (self::isCashaddr($address) && self::isValidCashaddr($address)) {
             $vars = [];
             $hash = self::getBinaryHash($address, true);
 
@@ -402,8 +402,11 @@ class Converter
      * Since the character "0" has ASCII code 48, we can set an offset of 48
      * example longDivide("127", "3", 10, "0") = "42"
      *
-     *
+     * With a different offset
      * longDivide("BCH", "D", 10, "A") = "42"
+     *
+     * As raw binary data, since "~" has ascii code 126:
+     * longdivide("~", char(3)) = 42
      */
     protected static function longDivide(string $dividend, string $divisor, int $base = 256, string $offset = ""): array
     {
