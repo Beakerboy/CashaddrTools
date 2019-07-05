@@ -408,8 +408,8 @@ class Converter
             $place_value = ord($dividend[$i]) + $base * $mod;
             if (!$remove_leading_zero || !$place_value == 0) {
                 $remove_leading_zero = false;
-                $int .= chr(intdiv($place_value, $divisor));
-                $mod = ord($dividend[$i]) + $base * $mod % $divisor;
+                $int .= chr(intdiv($place_value, ord($divisor)));
+                $mod = ord($dividend[$i]) + $base * $mod % ord($divisor);
             }
         }
         return [$int, $mod];
