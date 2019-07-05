@@ -400,27 +400,27 @@ class Converter
      * The value of the digit is the ascii code of the digit.
      *
      * Since the character "0" has ASCII code 48, we can set an offset of 48
-     * example longDivide("127", "3", 10, 48) = "42"
+     * example longDivide("127", "3", 10, "0") = "42"
      *
      *
-     * longDivide("ABG", "C", 10, 65) = "42"
+     * longDivide("BCH", "D", 10, "A") = "42"
      */
-    protected static function longDivide(string $dividend, string $divisor, int $base = 256, int $offset = 0): array
+    protected static function longDivide(string $dividend, string $divisor, int $base = 256, string $offset = ""): array
     {
         $length = strlen($dividend);
         $mod = 0;
         $int = "";
         $remove_leading_zero = true;
         for ($i = 0; $i < $length; $i++) {
-            $place_value = ord($dividend[$i]) - $offset + $base * $mod;
+            $place_value = ord($dividend[$i]) - ord($offset) + $base * $mod;
             if (!$remove_leading_zero || !$place_value == 0) {
-                $step_int = chr(intdiv($place_value, ord($divisor) - $offset));
+                $step_int = chr(intdiv($place_value, ord($divisor) - ord($offset)));
                 
                 // Don't add new leading zeros.
-                if (!$remove_leading_zero || $step_int != 0) {
+                if (!$remove_leading_zero || ord($step_int) !== 0) {
                     $int .= $step_int;
                 }
-                $mod = $place_value % (ord($divisor) - $offset);
+                $mod = $place_value % (ord($divisor) - ord($offset));
                 $remove_leading_zero = false;
             }
         }
