@@ -136,7 +136,7 @@ class Converter
         if ($seperator === false) {
             return $address;
         }
-        return substr($address, $seperator + 1);
+        return strtolower(substr($address, $seperator + 1));
     }
 
     /**
