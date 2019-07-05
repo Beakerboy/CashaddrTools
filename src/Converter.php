@@ -86,7 +86,7 @@ class Converter
 
             // Add version byte
             // pubkey hash = 0x00, script hash = 0x05
-            $version_array = [chr('0x00'), chr('0x05')];
+            $version_array = [chr(0x00), chr(0x05)];
             $type = self::getType($address);
             $hash = $version_array[self::getTypeVersion($address)] . $hash;
 
@@ -101,7 +101,7 @@ class Converter
             // Perform Base58 Encoding
             while ($hash !== chr(0)) {
                 list($hash, $char) = longDivide($hash, 58);
-                $wif = $char . $wif;
+                $wif = self::ALPHABET[ord($char)] . $wif;
             }
             return $wif;
         }
@@ -407,8 +407,21 @@ class Converter
      *
      * As raw binary data, since "~" has ascii code 126:
      * longdivide("~", char(3)) = 42
+     *
+     * @param string $dividend
+     * @param string $divisor
+     * @param int $base
+     * @param string or boolean $offset
+     *   If the offset is a string, then succesive ASCII characters will be used with $offset as zero.
+     *   ie "0" for binary, octal, or decimal encoded strings.
+     *   set to true to use the alphabet.
+     * @param string $alphabet
+     *   If an string is supplied, the string must be the same length as $base. The position in the string
+     *   is the value, (ie "0123456789abcdef" for base 16).
+     *
+     * @return array
      */
-    protected static function longDivide(string $dividend, string $divisor, int $base = 256, string $offset = ""): array
+    protected static function longDivide(string $dividend, string $divisor, int $base = 256, $offset = ""): array
     {
         $length = strlen($dividend);
         $mod = 0;
@@ -417,16 +430,16 @@ class Converter
         for ($i = 0; $i < $length; $i++) {
             $place_value = ord($dividend[$i]) - ord($offset) + $base * $mod;
             if (!$remove_leading_zero || !$place_value == 0) {
-                $step_int = chr(intdiv($place_value, ord($divisor) - ord($offset)));
+                $step_int = chr(intdiv($place_value, ord($divisor) - ord($offset)) + ord($offset));
                 
                 // Don't add new leading zeros.
-                if (!$remove_leading_zero || ord($step_int) !== 0) {
+                if (!$remove_leading_zero || $step_int !== $offset) {
                     $int .= $step_int;
                 }
                 $mod = $place_value % (ord($divisor) - ord($offset));
                 $remove_leading_zero = false;
             }
         }
-        return [$int, $mod];
+        return [$int, chr($mod + ord($offset))];
     }
 }
