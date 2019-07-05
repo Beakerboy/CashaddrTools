@@ -403,7 +403,7 @@ class Converter
         $length = strlen($dividened);
         $mod = 0;
         $int = "";
-        $remove_leading_zero = true
+        $remove_leading_zero = true;
         for ($i = 0; $i < $length; $i++) {
             $place_value = ord($dividend[$i]) + $base * $mod;
             if (!$remove_leading_zero || !$place_value == 0) {
