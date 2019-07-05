@@ -100,7 +100,7 @@ class Converter
             $wif = "";
             // Perform Base58 Encoding
             while ($hash !== chr(0)) {
-                list($hash, $char) = longDivide($hash, 58);
+                list($hash, $char) = self::longDivide($hash, 58);
                 $wif = self::ALPHABET[ord($char)] . $wif;
             }
             return $wif;
