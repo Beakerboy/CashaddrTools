@@ -107,9 +107,6 @@ class Converter
                 }
                 $hash = dechex(bindec($binary_hash)) . $hash;
                 return $hash;
-        }
-        $hash = dechex(bindec($binary_hash)) . $hash;
-        return $hash;
             }
             $wif = "";
             // Perform Base58 Encoding
