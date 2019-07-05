@@ -78,7 +78,7 @@ class Converter
      *
      * @return string
      */
-    public static function toLegacy($address)
+    public static function toLegacy(string $address, bool $wif = true): string
     {
         if (self::isCashaddr($address) && self::isValidCashaddr($address)) {
             $vars = [];
@@ -97,6 +97,9 @@ class Converter
             // Append first 4 bytes of the double hash to the extended hash.
             $checksum = substr($sha2, 0, 4);
             $hash .= $checksum;
+            if (!$wif) {
+                return unpack("H*", $hash);
+            }
             $wif = "";
             // Perform Base58 Encoding
             while ($hash !== chr(0)) {
