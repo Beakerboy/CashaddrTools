@@ -153,7 +153,7 @@ class Converter
         for ($i = 2; $i < strlen($payload) - 8; $i++) {
             // 5 bit binary 'nibble'.
             $nibblet = sprintf('%05b', strpos(self::CHARSET, $payload[$i]));
-            $binary_hash .= $nibblet
+            $binary_hash .= $nibblet;
         }
         $padding_array = [2, 0, 3, 1, 2, 3, 4, 0];
         $padding = $padding_array[self::getHashVersion($address)];
@@ -402,7 +402,7 @@ class Converter
      * Since the character "0" has ASCII code 48, we can set an offset of 48
      * example longDivide("127", "3", 10, 48) = "42"
      *
-     * 
+     *
      * longDivide("ABG", "C", 10, 65) = "42"
      */
     protected static function longDivide(string $dividend, string $divisor, int $base = 256, int $offset = 0): array
