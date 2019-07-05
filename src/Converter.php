@@ -98,7 +98,7 @@ class Converter
             $checksum = substr($sha2, 0, 4);
             $hash .= $checksum;
             if (!$wif) {
-                $binary_hash = $hash
+                $binary_hash = $hash;
                 $hash = "";
                 while (strlen($binary_hash) > 4) {
                     $nibble = substr($binary_hash, -4);
