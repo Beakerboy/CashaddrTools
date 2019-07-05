@@ -86,7 +86,7 @@ class Converter
 
             // Add version byte
             // pubkey hash = 0x00, script hash = 0x05
-            $version_array = [chr('ox00'), chr('0x05')];
+            $version_array = [chr('0x00'), chr('0x05')];
             $type = self::getType($address);
             $hash = $version_array[self::getTypeVersion($address)] . $hash;
 
