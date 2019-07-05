@@ -98,7 +98,18 @@ class Converter
             $checksum = substr($sha2, 0, 4);
             $hash .= $checksum;
             if (!$wif) {
-                return unpack("H*", $hash);
+                $binary_hash = $hash
+                $hash = "";
+                while (strlen($binary_hash) > 4) {
+                    $nibble = substr($binary_hash, -4);
+                    $binary_hash = substr($binary_hash, 0, -4);
+                    $hash = dechex(bindec($nibble)) . $hash;
+                }
+                $hash = dechex(bindec($binary_hash)) . $hash;
+                return $hash;
+        }
+        $hash = dechex(bindec($binary_hash)) . $hash;
+        return $hash;
             }
             $wif = "";
             // Perform Base58 Encoding
@@ -190,15 +201,17 @@ class Converter
      */
     public static function getHash($address): string
     {
-        $binary_hash = self::getBinaryHash($address);
+        $binary_hash = self::getBinaryHash($address, true);
         
         $hash = "";
-        while (strlen($binary_hash) > 4) {
-            $nibble = substr($binary_hash, -4);
-            $binary_hash = substr($binary_hash, 0, -4);
-            $hash = dechex(bindec($nibble)) . $hash;
+        $length = strlen($binary_hash);
+        for ($i = 0; $i < $length; $i++) {
+            $byte = $binary_hash[$i];
+            
+            $binary_hash = substr($binary_hash, 0, -1);
+            $hash = dechex(ord($byte)) . $hash;
         }
-        $hash = dechex(bindec($binary_hash)) . $hash;
+        $hash = dechex(ord($binary_hash)) . $hash;
         return $hash;
     }
 
@@ -444,5 +457,17 @@ class Converter
             }
         }
         return [$int, chr($mod + ord($offset))];
+    }
+
+    protected static function baseConvert($value, $base, $toBase, $alphabet): string
+    {
+        $result = "";
+        while (strlen($binary_hash) > 4) {
+            $nibble = substr($binary_hash, -4);
+            $binary_hash = substr($binary_hash, 0, -4);
+            $hash = dechex(bindec($nibble)) . $hash;
+        }
+        $result = dechex(bindec($binary_hash)) . $result;
+        return $result;
     }
 }
