@@ -398,7 +398,7 @@ class Converter
      *
      *
      */
-    private static function longDivide($dividend, $divisor, $base = 256): string
+    private static function longDivide($dividend, $divisor, $base = 256): array
     {
         $length = strlen($dividend);
         $mod = 0;
