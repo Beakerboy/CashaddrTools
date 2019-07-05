@@ -16,7 +16,7 @@ class ConverterTest extends \PHPUnit\Framework\TestCase
         $this->assertEquals('bitcoincash', Converter::getPrefix($address));
         // P2KH with 160 bit hash is version 0
         $this->assertEquals(0, Converter::getVersion($address));
-        // $this->assertEquals($legacy, Converter::toLegacy($address));
+        $this->assertEquals($legacy, Converter::toLegacy($address));
     }
 
     public function dataProviderForTestIsCashaddr()
