@@ -6,7 +6,7 @@ class ArbitraryInteger
 {
     public function __construct($number, int $base = 10, $offset = "0", string $alphabet = null)
     {
-        if (isint($number)) {
+        if (is_int($number)) {
             // Need to get this to work on $number > 255
             $this->base256 = chr($number);
             $this->length = 1;
