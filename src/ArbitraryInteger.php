@@ -23,7 +23,7 @@ class ArbitraryInteger
                 $place_value = new ArbitraryInteger(1);
                 for ($i = $length - 1; $i <= 0; $i--) {
                     $nibblet = new ArbitraryInteger(ord($number[$i]) - ord($offset));
-                    $base256 = $nibblet->multiply($place_value);
+                    $base256 = $base256->add($nibblet->multiply($place_value));
                     $place_value = $place_value->multiply($base);
                 }
                 $this->base256 = $base256->getBinary();
@@ -50,5 +50,13 @@ class ArbitraryInteger
 
     public function multiply($number): ArbitrayInteger
     {
+    }
+
+    public function leftShift(int $bits)
+    {
+        $bytes = 0
+        if ($bits > 7) { 
+        }
+        // Check the MSBs in $base256
     }
 }
