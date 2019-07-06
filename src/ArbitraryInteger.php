@@ -27,7 +27,7 @@ class ArbitraryInteger
                 for ($i = $length - 1; $i <= 0; $i--) {
                     $nibblet = new ArbitraryInteger(ord($number[$i]) - ord($offset));
                     $base256 = $nibblet->multiply($place_value);
-                    $place_value = $place_value->multiply($base)
+                    $place_value = $place_value->multiply($base);
                 }
                 $this->base256 = $base256->getBinary();
             } elseif ($base > 256) {
