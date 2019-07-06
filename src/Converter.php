@@ -204,7 +204,7 @@ class Converter
         $length = strlen($binary_hash);
         for ($i = 0; $i < $length; $i++) {
             $byte = $binary_hash[$i];
-            $hash .= dechex(ord($byte));
+            $hash .= sprintf('%02h', ord($byte));
         }
         return $hash;
     }
