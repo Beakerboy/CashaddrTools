@@ -1,6 +1,6 @@
 <?php
 
-namespace CashaddrTools
+namespace CashaddrTools;
 
 class ArbitraryInteger
 {
