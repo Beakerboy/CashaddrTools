@@ -24,7 +24,7 @@ class ArbitraryInteger
             if ($base < 256) {
                 $base_obj = new ArbitraryInteger(chr($base), 256);
                 $place_value = new ArbitraryInteger(1);
-                for ($i = $length -1; $i <= 0; $i—-) {
+                for ($i = $length - 1; $i <= 0; $i--) {
                     $nibblet = new ArbitraryInteger(ord($number[$i]) - ord($offset));
                     $base256 = $nibblet->multiply($place_value);
                     $place_value = $place_value->multiply($base)
