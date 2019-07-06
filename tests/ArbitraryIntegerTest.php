@@ -12,7 +12,7 @@ class ArbitraryIntegerTest extends \PHPUnit\Framework\TestCase
     public function testConstructor($number, $base, $offset, $expected)
     {
         $number = new ArbitraryInteger($number, $base, $offset);
-        $this->expectEquals($expected, $number->getBinary());
+        $this->expectEqual($expected, $number->getBinary());
     }
 
     public function dataProviderForConstructor()
