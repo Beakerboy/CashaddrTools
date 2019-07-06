@@ -204,11 +204,8 @@ class Converter
         $length = strlen($binary_hash);
         for ($i = 0; $i < $length; $i++) {
             $byte = $binary_hash[$i];
-            
-            $binary_hash = substr($binary_hash, 0, -1);
-            $hash = dechex(ord($byte)) . $hash;
+            $hash .= dechex(ord($byte));
         }
-        $hash = dechex(ord($binary_hash)) . $hash;
         return $hash;
     }
 
