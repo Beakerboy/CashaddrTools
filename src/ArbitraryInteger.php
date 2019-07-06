@@ -9,12 +9,9 @@ class ArbitraryInteger
         if (is_int($number)) {
             // Need to get this to work on $number > 255
             $this->base256 = chr($number);
-            $this->length = 1;
-            $this->base = 10;
-            $this->original = $number;
         } else {
             // Check that all elements are greater than the offset, and elements of the alphabet.
-            $this->length = strlen($number);
+            $length = strlen($number);
             $this->base = $base;
 
             // Set to zero offset and ascii alphabet
