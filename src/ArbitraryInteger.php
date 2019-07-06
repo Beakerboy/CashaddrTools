@@ -20,7 +20,7 @@ class ArbitraryInteger
             // Set to zero offset and ascii alphabet
             if ($offset !== 0) {
             }
-            $base256 = new ArbitraryInteger(0)
+            $base256 = new ArbitraryInteger(0);
             if ($base < 256) {
                 $base_obj = new ArbitraryInteger(chr($base), 256);
                 $place_value = new ArbitraryInteger(1)
