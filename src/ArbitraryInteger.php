@@ -69,7 +69,7 @@ class ArbitraryInteger
             $new_value = chr($carry | (ord($this->base256[$i]) >> (8 - $bits)));
             if ($shifted_string !== "" || $new_value !== chr(0)) {
                 $shifted_string .= $new_value;
-                $carry_mask = 255 - 2 ** (8 - $bits) + 1;
+                $carry_mask = 2 ** (8 - $bits) - 1;
                 $carry = (ord($this->base256[$i]) & $carry_mask) << $bits;
             }
         }
