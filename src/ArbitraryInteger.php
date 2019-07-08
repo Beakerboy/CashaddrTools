@@ -64,7 +64,7 @@ class ArbitraryInteger
         $carry = 0;
         for ($i = 0; $i < $length; $i++) {
             // If $shifted string is empty, don’t add 0x00.
-            $new_value = chr($carry & (ord($this->base256[$i]) >> (8 - $bits)));
+            $new_value = chr($carry | (ord($this->base256[$i]) >> (8 - $bits)));
             if ($shifted_string !== "" || $new_value !== chr(0)) {
                 $shifted_string .= $new_value;
                 $carry_mask = 2 ** (8 - $bits) - 1;
@@ -75,8 +75,7 @@ class ArbitraryInteger
 
         // Pad $bytes of 0x00 on the right.
         $shifted_string = str_pad($shifted_string, strlen($shifted_string) + $bytes, chr(0));
-        
-        
+
         return new ArbitraryInteger($shifted_string, 256, 0);
     }
 
