@@ -77,4 +77,9 @@ class ArbitraryInteger
         
         return $shifted_string;
     }
+
+    public function equals(ArbitraryInteger $int): bool
+    {
+        return $this->base256 == $int->getBinary();
+    }
 }
