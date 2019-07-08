@@ -23,4 +23,22 @@ class ArbitraryIntegerTest extends \PHPUnit\Framework\TestCase
          //   ["52", 10, "0", "4"],
         ];
     }
+
+    /**
+     * @dataProvider dataProviderForTestLeftShift
+     */
+    public function testLeftShift($value, $shift, $expected)
+    {
+        $start = new ArbitraryInteger($value);
+        $shifted = $start->leftShift($shift);
+        $this->assertTrue($shifted->equals($expected));
+    }
+
+    public function dataProviderForTestLeftShift()
+    {
+        return [
+            [20, 2, 80],
+            [7, 9, 3584],
+        ];
+    }
 }
