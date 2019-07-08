@@ -9,8 +9,15 @@ class ArbitraryInteger
     public function __construct($number, int $base = 10, $offset = "0", string $alphabet = null)
     {
         if (is_int($number)) {
+            $int_part = intdiv($number, 256);
+            $string = chr($number % 256);
+
+            while ($int_part > 0) {
+                $string = chr($int_part % 256) . $string;
+                $int_part = intdiv($int_part, 256);
+            }
             // Need to get this to work on $number > 255
-            $this->base256 = chr($number);
+            $this->base256 = $string;
         } else {
             // Check that all elements are greater than the offset, and elements of the alphabet.
             $length = strlen($number);
