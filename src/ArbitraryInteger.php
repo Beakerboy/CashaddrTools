@@ -4,6 +4,8 @@ namespace CashaddrTools;
 
 class ArbitraryInteger
 {
+    protected $base256;
+
     public function __construct($number, int $base = 10, $offset = "0", string $alphabet = null)
     {
         if (is_int($number)) {
