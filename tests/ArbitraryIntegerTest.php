@@ -32,7 +32,7 @@ class ArbitraryIntegerTest extends \PHPUnit\Framework\TestCase
         $start = new ArbitraryInteger($value);
         $shifted = $start->leftShift($shift);
         $expectedObject = new ArbitraryInteger($expected);
-        $this->assertTrue($shifted->equals($expectedObject));
+        $this->assertEquals($expectedObject->getBinary(), $shifted->getBinary());
     }
 
     public function dataProviderForTestLeftShift()
