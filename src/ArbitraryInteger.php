@@ -54,9 +54,21 @@ class ArbitraryInteger
 
     public function leftShift(int $bits)
     {
-        $bytes = 0
-        if ($bits > 7) { 
+        $bytes = 0;
+        $shifted_string = "";
+        if ($bits > 7) {
+            $bytes = intdiv($bits, 8);
+            $bits = $bits % 8;
         }
-        // Check the MSBs in $base256
+        $carry = 0;
+        for ($i = 0; $i < $length; $i++) {
+            $shifted_string = chr($carry & ($this->base256[$i] >> (8 - $bits)));
+            $carry_mask = 2 ** (8 - $bits) - 1;
+            $carry = $this->base256[$i] & $carry_mask << $bits;
+        }
+        $shifted_string .= chr($carry);
+        $shifted_string = str_pad($shifted_string, strlen($shifted_string) + $bytes, chr(0));
+        pad $bytes of 0x00 on the right.
+        return $shifted_string;
     }
 }
