@@ -56,6 +56,7 @@ class ArbitraryInteger
     {
         $bytes = 0;
         $shifted_string = "";
+        $length = strlen($this->base256);
         if ($bits > 7) {
             $bytes = intdiv($bits, 8);
             $bits = $bits % 8;
