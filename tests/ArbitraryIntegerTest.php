@@ -31,7 +31,8 @@ class ArbitraryIntegerTest extends \PHPUnit\Framework\TestCase
     {
         $start = new ArbitraryInteger($value);
         $shifted = $start->leftShift($shift);
-        $this->assertTrue($shifted->equals($expected));
+        $expectedObject = new ArbitraryInteger($expected);
+        $this->assertTrue($shifted->equals($expectedObject));
     }
 
     public function dataProviderForTestLeftShift()
