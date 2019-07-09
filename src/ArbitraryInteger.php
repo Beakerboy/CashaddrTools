@@ -6,7 +6,22 @@ class ArbitraryInteger
 {
     protected $base256;
 
-    public function __construct($number, int $base = 10, $offset = "0", string $alphabet = null)
+    /**
+     * Constructor
+     *
+     * @param mixed $number
+     *   A string or integer
+     * @param int $base
+     *   The number base. The default is base 10.
+     * @param mixed $offset
+     *   The alphabet or offset of a string number.
+     *   $offset can either be a number or an array.
+     *   If $offset is null, the following default values are used:
+     *     Base 2, 8, 10: $offset = '0';
+     *     Base 16      : $offset = '0123456789abcdef’
+     *     All others   : $offset = chr(0)
+     */
+    public function __construct($number, int $base = 10, $offset = null)
     {
         if (is_int($number)) {
             $int_part = intdiv($number, 256);
@@ -85,7 +100,7 @@ class ArbitraryInteger
         // Pad $bytes of 0x00 on the right.
         $shifted_string = str_pad($shifted_string, $bytes, chr(0));
 
-        return new ArbitraryInteger($shifted_string, 256, 0);
+        return new ArbitraryInteger($shifted_string, 256);
     }
 
     public function equals(ArbitraryInteger $int): bool
