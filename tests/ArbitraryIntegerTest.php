@@ -20,7 +20,7 @@ class ArbitraryIntegerTest extends \PHPUnit\Framework\TestCase
         return [
             ["4", 256, null, "4"],
             [52, 10, "0", "4"],
-            [13366, 10, "0", "44"],
+            [13364, 10, "0", "44"],
          //   ["52", 10, "0", "4"],
         ];
     }
