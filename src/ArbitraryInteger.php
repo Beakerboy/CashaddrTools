@@ -78,13 +78,10 @@ class ArbitraryInteger
 
     public function leftShift(int $bits)
     {
-        $bytes = 0;
         $shifted_string = "";
         $length = strlen($this->base256);
-        if ($bits > 7) {
-            $bytes = intdiv($bits, 8);
-            $bits = $bits % 8;
-        }
+        $bytes = intdiv($bits, 8);
+        $bits = $bits % 8;
         $carry = 0;
         for ($i = 0; $i < $length; $i++) {
             $chr = ord($this->base256[$i]);
