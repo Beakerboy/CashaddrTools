@@ -39,7 +39,7 @@ class ArbitraryInteger
 
             // Set to zero offset and ascii alphabet
             if ($offset === null) {
-                select ($base) {
+                switch ($base) {
                     case 2:
                     case 8:
                     case 10:
