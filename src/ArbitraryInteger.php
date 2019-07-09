@@ -31,7 +31,6 @@ class ArbitraryInteger
                 $string = chr($int_part % 256) . $string;
                 $int_part = intdiv($int_part, 256);
             }
-            // Need to get this to work on $number > 255
             $this->base256 = $string;
         } else {
             // Check that all elements are greater than the offset, and elements of the alphabet.
@@ -39,7 +38,20 @@ class ArbitraryInteger
             $this->base = $base;
 
             // Set to zero offset and ascii alphabet
-            if ($offset !== 0) {
+            if ($offset === null) {
+                select ($base) {
+                    case 2:
+                    case 8:
+                    case 10:
+                        $offset = '0';
+                        break;
+                    case 16:
+                        $offset = '0123456789abcdef';
+                        break;
+                    default:
+                        $offset = chr(0);
+                        break;
+                }
             }
             $base256 = new ArbitraryInteger(0);
             if ($base < 256) {
@@ -55,9 +67,6 @@ class ArbitraryInteger
                 throw \Exception;
             } else {
                 $this->base256 = $number;
-                $this->original = $number;
-                $this->length = strlen($number);
-                $this->base = 256;
                 // need to drop leading zeroes.
             }
         }
@@ -89,8 +98,8 @@ class ArbitraryInteger
             $new_value = chr($carry + intdiv($chr << $bits, 256));
             if ($shifted_string !== "" || $new_value !== chr(0)) {
                 $shifted_string .= $new_value;
-                $carry = ($chr << $bits) % 256;
             }
+            $carry = ($chr << $bits) % 256;
         }
         $shifted_string .= chr($carry);
 
