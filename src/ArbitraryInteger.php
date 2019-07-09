@@ -77,7 +77,7 @@ class ArbitraryInteger
             if ($shifted_string !== "" || $new_value !== chr(0)) {
                 $shifted_string .= $new_value;
                 $carry_mask = 2 ** (8 - $bits + 1) - 1;
-                $carry = (ord($this->base256[$i]) & $carry_mask) << $bits;
+                $carry = (ord($this->base256[$i]) << $bits) % 256;
             }
         }
         $shifted_string .= chr($carry);
