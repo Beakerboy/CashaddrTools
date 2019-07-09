@@ -83,7 +83,7 @@ class ArbitraryInteger
         $shifted_string .= chr($carry);
 
         // Pad $bytes of 0x00 on the right.
-        $shifted_string = str_pad($shifted_string, strlen($shifted_string) + $bytes, chr(0));
+        $shifted_string = str_pad($shifted_string, $bytes, chr(0));
 
         return new ArbitraryInteger($shifted_string, 256, 0);
     }
