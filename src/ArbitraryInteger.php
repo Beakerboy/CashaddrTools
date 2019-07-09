@@ -72,11 +72,12 @@ class ArbitraryInteger
         }
         $carry = 0;
         for ($i = 0; $i < $length; $i++) {
+            $chr = ord($this->base256[$i]);
             // If $shifted string is empty, don’t add 0x00.
-            $new_value = chr($carry | (ord($this->base256[$i]) >> (8 - $bits)));
+            $new_value = chr($carry + ($chr << $bits) % 256);
             if ($shifted_string !== "" || $new_value !== chr(0)) {
                 $shifted_string .= $new_value;
-                $carry = (ord($this->base256[$i]) << $bits) % 256;
+                $carry = intdiv($chr << $bits, 256);
             }
         }
         $shifted_string .= chr($carry);
