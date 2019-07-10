@@ -169,7 +169,7 @@ class Converter
     {
         $len = strlen($hex);
         $binary_str = '';
-        for ($i = 0;$i < $len; $i += 2) {
+        for ($i = 0; $i < $len; $i += 2) {
             $byte = substr($hex, $i, 2);
             $byte_val = hexdec($byte);
             // Ensure this actually pads the 0's, phpfiddle fails
