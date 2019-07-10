@@ -118,6 +118,90 @@ class Converter
         }
     }
 
+    
+    /**
+     * toCashaddr
+     *
+     * Convert a legacy address to cashaddr format
+     *
+     * @param string $address
+     * @return string
+     */
+    public static function toCashaddr(string $address): string
+    {
+        // check if legacy format
+        $len = strlen($address);
+
+        // Convert to hex
+        $hash = 0;
+        for ($i = 0; $i < $len; $i++) {
+            $hash = $hash * 58 + strpos(self::ALPHABET, $address[0]);
+        }
+
+        // Remove checksum
+        $key = substr($hash, 0, -2);
+        
+        // Hash the key twice and check the checksum
+        // Check that the first byte is a valid version byte
+        // f (bte1 !== foo || byte1 !== bar) {
+        //  throw \Exception;
+        // }
+        //remove first byte
+        $ripemod = substr($key, 1);
+
+        $binary_str = self::hex2Bin($ripemod);
+        
+        // convert to array of 32 bit numbers
+        self::binaryTo32BitArray($binary_str);
+
+        // Left Shift by 2 bits
+        $len = count($base32);
+        $carry = 0;
+        $cashaddr = '';
+        foreach (array_reverse($base32) as $chr) {
+            $cashaddr_nibblet = ($chr * 4) % 32 + $carry;
+            $carry = intdiv($chr * 4, 32);
+            $cashaddr .=  self::CHARSET[$cashaddr_nibblet];
+        }
+        $cashaddr = 'bitcoincash:q' . strrev($cashaddr) . "00000000";
+        $checksum = dechex(self::polymod($cashaddr));
+        $cashaddr = $cashaddr . $checksum;
+    }
+
+    /**
+     * Hex to Binary
+     *
+     * Given a string of the characters [0-9a-f] return a string of [0-1]
+     * of the same value in binary.
+     */
+    private function hex2Bin(string $hex)
+    {
+        $len = strlen($hex);
+        $binary_str = '';
+        for ($i = 0;$i < $len; $i += 2) {
+            $byte = substr($hex, $i, 2);
+            $byte_val = hexdec($byte);
+            // Ensure thos actually pads the 0's, phpfiddle fails
+            $binary_str .= sprintf("%08b", $byte_val);
+            // $binary_str .= sprintf("%8b", $byte_val);
+        }
+        // $binary_str = str_replace(" ", "0", $binary_str);
+        return $binary_str;
+    }
+
+    private function binaryTo32BitArray(string $binary_str): array
+    {
+        $base32 = [];
+        $len = strlen($binary_str);
+        for ($i = 0; $i < $len; $i += 5) {
+            $byte = bindec(substr($binary_str, 0, 5));
+            $binary_str = substr($binary_str, 5);
+            $base32[] = $byte;
+        }
+        return $base32;
+    }
+  
+    
     /**
      * Get the address prefix
      */
@@ -267,32 +351,6 @@ class Converter
     {
         $hash_version = self::getHashVersion($address);
         return self::HASH_SIZE[$hash_version];
-    }
-
-    /**
-     * toCashaddr
-     *
-     * Convert a legacy address to cashaddr format
-     *
-     * @param string $address
-     * @return string
-     */
-    public static function toCashaddr(string $address): string
-    {
-        // check if legacy format
-        $len = strlen($address);
-
-        // Convert to hex
-        $hash = 0;
-        for ($i = 0; $i < $len; $i++) {
-            $hash = $hash * 58 + strpos(self::ALPHABET, $address[0]);
-        }
-
-        // Remove checksum (check the checksum to ensure valididty?)
-        // Inspect the version byte and remove.
-        // Prepend prefix, separator, version
-        // Append 8 checksum zero bits
-        // Generate checksum
     }
 
     /**
