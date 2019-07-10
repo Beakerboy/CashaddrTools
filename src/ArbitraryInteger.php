@@ -32,10 +32,9 @@ class ArbitraryInteger
                 $int_part = intdiv($int_part, 256);
             }
             $this->base256 = $string;
-        } else {
+        } elseif (is_string($number)) {
             // Check that all elements are greater than the offset, and elements of the alphabet.
             $length = strlen($number);
-            $this->base = $base;
 
             // Set to zero offset and ascii alphabet
             if ($offset === null) {
@@ -69,6 +68,8 @@ class ArbitraryInteger
                 $this->base256 = $number;
                 // need to drop leading zeroes.
             }
+        } else {
+            throw \Exception;
         }
     }
 
