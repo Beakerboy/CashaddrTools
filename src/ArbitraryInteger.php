@@ -78,12 +78,39 @@ class ArbitraryInteger
         return $this->base256;
     }
 
-    public function add($number1, $number2)
+    public function add($number)
     {
     }
 
     public function multiply($number): ArbitrayInteger
     {
+        // check if string, object, or int
+        // throw exception if appropriate
+        if (!is_object($number)) {
+            $number = new ArbitraryInteger($number);
+        }
+        $number = $number->getBinary();
+        $length = strlen($number);
+        $product = '';
+        for ($i = 0; $i < $length; $i++) {
+            $this_len = strlen($this->base256);
+            $base_digit = ord(substr($number, -1 * $i, 1));
+            $carry = 0;
+            $inner_product = '';
+            for ($j = 0; $j < $this_len; $j++) {
+                $digit = ord(substr($this->base256, -1 * $i, 1));
+                $step_product = $digit * $base_digit;
+                $mod = $step_product % 256;
+                $carry = intdiv($step_product, 256);
+                $inner_product = chr($mod) . $inner_product;
+            }
+            if ($carry > 0) {
+                $inner_product = chr($carry) . $inner_product;
+            }
+            $inner_product = str_pad($inner_product, $i, chr(0));
+            $product = $product->add($inner_product);
+        }
+        return $product;
     }
 
     public function leftShift(int $bits)
