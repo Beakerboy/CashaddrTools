@@ -118,6 +118,16 @@ class Converter
         }
     }
 
+    public static function toCashaddr($legacy): string
+    {
+        // check if hex or WIF
+        // Check that first digit is a valid address type
+        // Check the checksum
+        // Convert to binary.
+        // left shift by two bits
+        // Reassemble
+    }
+
     /**
      * Get the address prefix
      */
