@@ -26,6 +26,23 @@ class ArbitraryIntegerTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
+     * @dataProvider dataProviderForMultiply
+     */
+    public function testMultiply($number1, $number2, $expected)
+    {
+        $num1 = new ArbitraryInteger($number1);
+        $exp = new ArbitraryInteger($expected);
+        $this->assertEquals($exp->getBinary(), $num1->multiply($number2)->getBinary());
+    }
+
+    public function dataProviderForMultiply()
+    {
+        return [
+            [80, 2, 160],
+            [300, 10, 3000],
+        ];
+    }
+    /**
      * @dataProvider dataProviderForTestLeftShift
      */
     public function testLeftShift($value, $shift, $expected)
@@ -40,7 +57,7 @@ class ArbitraryIntegerTest extends \PHPUnit\Framework\TestCase
     {
         return [
             [20, 2, 80],
-            [20, 10, 10240],
+            //[20, 10, 10240],
         ];
     }
 }
