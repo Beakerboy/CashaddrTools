@@ -143,29 +143,20 @@ class Converter
         
         // Hash the key twice and check the checksum
         // Check that the first byte is a valid version byte
-        // f (bte1 !== foo || byte1 !== bar) {
+        // if (byte1 !== foo || byte1 !== bar) {
         //  throw \Exception;
         // }
         //remove first byte
         $ripemod = substr($key, 1);
 
-        $binary_str = self::hex2Bin($ripemod);
+        // Convert hex to binary and left shift by 2
+        $binary_str = "000" . self::hex2Bin($ripemod) . "00";
         
         // convert to array of 32 bit numbers
-        self::binaryTo32BitArray($binary_str);
-
-        // Left Shift by 2 bits
-        $len = count($base32);
-        $carry = 0;
-        $cashaddr = '';
-        foreach (array_reverse($base32) as $chr) {
-            $cashaddr_nibblet = ($chr * 4) % 32 + $carry;
-            $carry = intdiv($chr * 4, 32);
-            $cashaddr .=  self::CHARSET[$cashaddr_nibblet];
-        }
-        $cashaddr = 'bitcoincash:q' . strrev($cashaddr) . "00000000";
-        $checksum = dechex(self::polymod($cashaddr));
-        $cashaddr = $cashaddr . $checksum;
+        $base32 = self::binaryTo32Bit($binary_str);
+        $cashaddr = 'bitcoincash:q' . $base32 . "00000000";
+        $checksum = self::binaryTo32Bit(self::hex2bin(dechex(self::polymod($cashaddr))));
+        $cashaddr = substr($cashaddr, 0, -8) . $checksum;
     }
 
     /**
@@ -181,7 +172,7 @@ class Converter
         for ($i = 0;$i < $len; $i += 2) {
             $byte = substr($hex, $i, 2);
             $byte_val = hexdec($byte);
-            // Ensure thos actually pads the 0's, phpfiddle fails
+            // Ensure this actually pads the 0's, phpfiddle fails
             $binary_str .= sprintf("%08b", $byte_val);
             // $binary_str .= sprintf("%8b", $byte_val);
         }
@@ -189,14 +180,14 @@ class Converter
         return $binary_str;
     }
 
-    private function binaryTo32BitArray(string $binary_str): array
+    private function binaryTo32Bit(string $binary_str): array
     {
-        $base32 = [];
+        $base32 = '';
         $len = strlen($binary_str);
         for ($i = 0; $i < $len; $i += 5) {
             $byte = bindec(substr($binary_str, 0, 5));
             $binary_str = substr($binary_str, 5);
-            $base32[] = $byte;
+            $base32 .= self::CHARSET[$byte];
         }
         return $base32;
     }
