@@ -103,7 +103,7 @@ class ArbitraryInteger
         }
         $number = $number->getBinary();
         $length = strlen($number);
-        $product = '';
+        $product = new ArbitraryInteger(0);;
         for ($i = 0; $i < $length; $i++) {
             $this_len = strlen($this->base256);
             $base_digit = ord(substr($number, -1 * $i, 1));
