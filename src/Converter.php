@@ -158,6 +158,7 @@ class Converter
         $cashaddr_array = self::toByteArray($cashaddr);
         $checksum = self::binaryTo32Bit(self::hex2bin(dechex(self::polymod($cashaddr_array))));
         $cashaddr = substr($cashaddr, 0, -8) . $checksum;
+        return $cashaddr;
     }
 
     /**
