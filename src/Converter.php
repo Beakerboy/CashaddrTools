@@ -165,7 +165,7 @@ class Converter
      * Given a string of the characters [0-9a-f] return a string of [0-1]
      * of the same value in binary.
      */
-    private function hex2Bin(string $hex)
+    private static function hex2Bin(string $hex)
     {
         $len = strlen($hex);
         $binary_str = '';
@@ -180,7 +180,7 @@ class Converter
         return $binary_str;
     }
 
-    private function binaryTo32Bit(string $binary_str): array
+    private static function binaryTo32Bit(string $binary_str): array
     {
         $base32 = '';
         $len = strlen($binary_str);
