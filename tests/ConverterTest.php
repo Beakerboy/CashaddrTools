@@ -41,12 +41,12 @@ class ConverterTest extends \PHPUnit\Framework\TestCase
         ];
     }
 
-    public function testToCashaddr()
-    {
-        $expected = 'bitcoincash:qpm2qsznhks23z7629mms6s4cwef74vcwvy22gdx6a';
-        $legacy = '1BpEi6DfDAUFd7GtittLSdBeYJvcoaVggu';
-        $this->assertEquals($expected, Converter::toCashaddr($legacy));
-    }
+    //public function testToCashaddr()
+    //{
+    //    $expected = 'bitcoincash:qpm2qsznhks23z7629mms6s4cwef74vcwvy22gdx6a';
+    //    $legacy = '1BpEi6DfDAUFd7GtittLSdBeYJvcoaVggu';
+    //    $this->assertEquals($expected, Converter::toCashaddr($legacy));
+    //}
 
     /**
      * @testCase testIsNotCashaddr()
