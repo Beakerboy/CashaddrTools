@@ -45,7 +45,7 @@ class ConverterTest extends \PHPUnit\Framework\TestCase
     {
         $expected = 'bitcoincash:qpm2qsznhks23z7629mms6s4cwef74vcwvy22gdx6a';
         $legacy = '1BpEi6DfDAUFd7GtittLSdBeYJvcoaVggu';
-        $this->assertEquals($expected, CashaddrTools::toCashaddr($legacy));
+        $this->assertEquals($expected, Converter::toCashaddr($legacy));
     }
 
     /**
