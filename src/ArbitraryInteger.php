@@ -57,7 +57,7 @@ class ArbitraryInteger
                 $offset_num = 0;
                 for ($i = 0; $i < $length; $i++) {
                     $chr = $number[$i];
-                    if (strlen($offset) = 1) {
+                    if (strlen($offset) ==  1) {
                         $offset_num = ord($offset);
                         $number[$i] = chr(ord($chr) - $offset_num);
                     } else {
