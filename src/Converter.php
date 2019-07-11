@@ -155,7 +155,8 @@ class Converter
         // convert to array of 32 bit numbers
         $base32 = self::binaryTo32Bit($binary_str);
         $cashaddr = 'bitcoincash:q' . $base32 . "00000000";
-        $checksum = self::binaryTo32Bit(self::hex2bin(dechex(self::polymod($cashaddr))));
+        $cashaddr_array = self::toByteArray($cashaddr);
+        $checksum = self::binaryTo32Bit(self::hex2bin(dechex(self::polymod($cashaddr_array))));
         $cashaddr = substr($cashaddr, 0, -8) . $checksum;
     }
 
