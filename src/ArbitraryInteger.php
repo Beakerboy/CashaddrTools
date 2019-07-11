@@ -36,7 +36,7 @@ class ArbitraryInteger
             // Check that all elements are greater than the offset, and elements of the alphabet.
             $length = strlen($number);
 
-            // Set to zero offset and ascii alphabet
+            // Set to default offset and ascii alphabet
             if ($offset === null) {
                 switch ($base) {
                     case 2:
@@ -52,14 +52,26 @@ class ArbitraryInteger
                         break;
                 }
             }
+            // Remove the offset.
+            if ($offset !== chr(0)) {
+                $offset_num = 0;
+                for ($i = 0; $i < $length; $i++) {
+                    $chr = $number[$i];
+                    if (strlen($offset) = 1) {
+                        $offset_num = ord($offset);
+                        $number[$i] = chr(ord($chr) - $offset_num);
+                    } else {
+                        $number[$i] = strpos($offset, $chr);
+                    }
+                }
+            }
             $base256 = new ArbitraryInteger(0);
             if ($base < 256) {
-                $base_obj = new ArbitraryInteger(chr($base), 256);
+                $base_obj = new ArbitraryInteger($base);
                 $place_value = new ArbitraryInteger(1);
                 for ($i = $length - 1; $i <= 0; $i--) {
-                    $nibblet = new ArbitraryInteger(ord($number[$i]) - ord($offset));
-                    $base256 = $base256->add($nibblet->multiply($place_value));
-                    $place_value = $place_value->multiply($base);
+                    $chr = ord($number[$i]);
+                    $base256 = $base256->multiply($base)->add($chr);
                 }
                 $this->base256 = $base256->getBinary();
             } elseif ($base > 256) {
