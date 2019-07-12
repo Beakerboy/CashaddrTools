@@ -118,7 +118,7 @@ class ArbitraryInteger
             
             $result = chr($sum % 256). $result;
         }
-        return new ArbitraryInteger($result);
+        return new ArbitraryInteger($result, 256);
     }
 
     public function multiply($number): ArbitrayInteger
