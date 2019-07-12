@@ -106,7 +106,7 @@ class ArbitraryInteger
         $number = $number->getBinary();
         $carry = 0;
         $len = strlen($this->base256);
-        $num_len = str_len($number);
+        $num_len = strlen($number);
         $max_len = max($len, $num_len);
         $base_256 = str_pad($base_256, $max_len - $len, chr(0));
         $number = str_pad($number, $max_len - $len, chr(0));
