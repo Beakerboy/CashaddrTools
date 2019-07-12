@@ -40,7 +40,9 @@ class ArbitraryInteger
         } elseif (is_string($number)) {
             // Check that all elements are greater than the offset, and elements of the alphabet.
             $length = strlen($number);
-
+            if ($length === 0) {
+                throw \Exception;
+            }
             // Set to default offset and ascii alphabet
             if ($offset === null) {
                 switch ($base) {
