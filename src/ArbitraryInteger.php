@@ -97,6 +97,28 @@ class ArbitraryInteger
 
     public function add($number)
     {
+        // check if string, object, or int
+        // throw exception if appropriate
+        if (!is_object($number)) {
+            $number = new ArbitraryInteger($number);
+        }
+        $number = $number->getBinary();
+        $carry = 0;
+        $len = strlen($this->base256);
+        $num_len = str_len($number);
+        $max_len = max($len, $num_len);
+        $base_256 = str_pad($base_256, $max_len - $len, chr(0));
+        $number = str_pad($number, $max_len - $len, chr(0));
+        $result = '';
+        for ($i = 0; $i < $max_len; $i++) {
+            $base_chr = ord($base_256[$max_len - $i]);
+            $num_chr = ord($number[$max_len - $i]);
+            $sum = $base_chr + $num_chr + $carry;
+            $carry = intdiv($sum, 256);
+            
+            $result = chr($sum % 256). $result;
+        }
+        return new ArbitraryInteger($result);
     }
 
     public function multiply($number): ArbitrayInteger
