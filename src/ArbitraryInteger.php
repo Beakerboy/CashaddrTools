@@ -108,7 +108,7 @@ class ArbitraryInteger
         $len = strlen($this->base256);
         $num_len = strlen($number);
         $max_len = max($len, $num_len);
-        $base_256 = str_pad($base_256, $max_len - $len, chr(0));
+        $base_256 = str_pad($this->base_256, $max_len - $len, chr(0));
         $number = str_pad($number, $max_len - $len, chr(0));
         $result = '';
         for ($i = 0; $i < $max_len; $i++) {
