@@ -148,7 +148,8 @@ class ArbitraryInteger
                 $inner_product = chr($carry) . $inner_product;
             }
             $inner_product = str_pad($inner_product, $i, chr(0));
-            $product = $product->add($inner_product);
+            $inner_obj = new ArbitraryInteger($inner_product, 256);
+            $product = $product->add($inner_obj);
         }
         return $product;
     }
