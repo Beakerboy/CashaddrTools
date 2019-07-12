@@ -122,7 +122,7 @@ class ArbitraryInteger
         return new ArbitraryInteger($result, 256);
     }
 
-    public function multiply($number): ArbitrayInteger
+    public function multiply($number): ArbitraryInteger
     {
         // check if string, object, or int
         // throw exception if appropriate
