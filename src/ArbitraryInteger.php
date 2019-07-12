@@ -112,8 +112,8 @@ class ArbitraryInteger
         $number = str_pad($number, $max_len - $len, chr(0));
         $result = '';
         for ($i = 0; $i < $max_len; $i++) {
-            $base_chr = ord($base_256[$max_len - $i]);
-            $num_chr = ord($number[$max_len - $i]);
+            $base_chr = ord($base_256[$max_len - $i - 1]);
+            $num_chr = ord($number[$max_len - $i - 1]);
             $sum = $base_chr + $num_chr + $carry;
             $carry = intdiv($sum, 256);
             
