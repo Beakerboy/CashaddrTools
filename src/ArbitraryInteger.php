@@ -74,7 +74,8 @@ class ArbitraryInteger
             if ($base < 256) {
                 $base_obj = new ArbitraryInteger($base);
                 $place_value = new ArbitraryInteger(1);
-                for ($i = $length - 1; $i <= 0; $i--) {
+                $length = strlen($number);
+                for ($i = 0; $i < $length; $i++) {
                     $chr = ord($number[$i]);
                     $base256 = $base256->multiply($base)->add($chr);
                 }
