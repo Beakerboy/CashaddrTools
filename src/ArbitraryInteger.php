@@ -2,6 +2,11 @@
 
 namespace CashaddrTools;
 
+/**
+ * Arbitrary Length Integer
+ *
+ * http://www.faqs.org/rfcs/rfc3548.html
+ */
 class ArbitraryInteger
 {
     protected $base256;
