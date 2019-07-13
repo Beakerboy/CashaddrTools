@@ -10,6 +10,8 @@ namespace CashaddrTools;
 class ArbitraryInteger
 {
     protected $base256;
+    const RFC3548_BASE16 = '0123456789ABCDEF';
+    const RFC3548_BASE64 = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/';
 
     /**
      * Constructor
