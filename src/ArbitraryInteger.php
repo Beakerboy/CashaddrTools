@@ -136,12 +136,12 @@ class ArbitraryInteger
         $number = $number->getBinary();
         $length = strlen($number);
         $product = new ArbitraryInteger(0);
-        for ($i = 0; $i < $length; $i++) {
+        for ($i = 1; $i <= $length; $i++) {
             $this_len = strlen($this->base256);
             $base_digit = ord(substr($number, -1 * $i, 1));
             $carry = 0;
             $inner_product = '';
-            for ($j = 0; $j < $this_len; $j++) {
+            for ($j = 1; $j <= $this_len; $j++) {
                 $digit = ord(substr($this->base256, -1 * $j, 1));
                 $step_product = $digit * $base_digit;
                 $mod = $step_product % 256;
