@@ -27,6 +27,24 @@ class ArbitraryIntegerTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
+     * @dataProvider dataProviderForAdd
+     */
+    public function testAdd($number1, $number2, $expected)
+    {
+        $num1 = new ArbitraryInteger($number1);
+        $exp = new ArbitraryInteger($expected);
+        $this->assertEquals($exp->getBinary(), $num1->add($number2)->getBinary());
+    }
+
+    public function dataProviderForAdd()
+    {
+        return [
+            [80, 2, 82],
+            [300, 10, 310],
+        ];
+    }
+
+    /**
      * @dataProvider dataProviderForMultiply
      */
     public function testMultiply($number1, $number2, $expected)
