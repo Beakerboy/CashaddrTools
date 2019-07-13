@@ -59,7 +59,7 @@ class ArbitraryIntegerTest extends \PHPUnit\Framework\TestCase
     {
         return [
             [80, 2, 160],
-            [300, 10, 3000],
+            [8481, 10, 84810],
         ];
     }
     /**
