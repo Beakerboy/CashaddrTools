@@ -142,7 +142,7 @@ class ArbitraryInteger
             $carry = 0;
             $inner_product = '';
             for ($j = 0; $j < $this_len; $j++) {
-                $digit = ord(substr($this->base256, -1 * $i, 1));
+                $digit = ord(substr($this->base256, -1 * $j, 1));
                 $step_product = $digit * $base_digit;
                 $mod = $step_product % 256;
                 $carry = intdiv($step_product, 256);
