@@ -100,6 +100,28 @@ class ArbitraryInteger
         return $this->base256;
     }
 
+    public function toDecimal(): string
+    {
+    }
+
+    public function toBase(int $base, $alphabet = null): string
+    {
+        // check that base is less than 256
+        // Check that the alphabet has the right number of chars.
+        $result = '';
+        $int = new ArbitraryInteger($this->base256, 256);
+        while ($int > 0 && $mod > 0) {
+            list($int, $mod) = $int->intdiv($base);
+            $result = chr($mod) . $result;
+        }
+        return $result
+    }
+
+    public function intdiv($divisor): array
+    {
+        
+    }
+
     public function add($number)
     {
         // check if string, object, or int
@@ -124,6 +146,11 @@ class ArbitraryInteger
             $result = chr($sum % 256). $result;
         }
         return new ArbitraryInteger($result, 256);
+    }
+
+    public function subtract($number): ArbitraryInteger
+    {
+        // If $number > $this throw exception
     }
 
     public function multiply($number): ArbitraryInteger
@@ -185,5 +212,27 @@ class ArbitraryInteger
     public function equals(ArbitraryInteger $int): bool
     {
         return $this->base256 == $int->getBinary();
+    }
+
+    public function lessThan(ArbitraryInteger $int): bool
+    {
+        $base_256 = $this->base256;
+        $int_256 = $int->getBinary();
+        $my_len = strlen($base_256);
+        $int_len = strlen($int_256);
+        
+        if ($my_len > $int_len) {
+            return false;
+        } elseif ($int_len > $my_len) {
+            return true;
+        } else {
+            for ($i = 0; $i < $my_len; $i++) {
+                if ($base_256[$i] !== $int_256[$i]) {
+                    return ord($base_256[$i]) < ord($int_256[$i]);
+                }
+            }
+            // Must be equal
+            return false;
+        }
     }
 }
