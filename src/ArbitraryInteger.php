@@ -151,7 +151,7 @@ class ArbitraryInteger
             if ($carry > 0) {
                 $inner_product = chr($carry) . $inner_product;
             }
-            $inner_product = $inner_product . str_repeat(chr(0), $i);
+            $inner_product = $inner_product . str_repeat(chr(0), $i - 1);
             $inner_obj = new ArbitraryInteger($inner_product, 256);
             $product = $product->add($inner_obj);
         }
