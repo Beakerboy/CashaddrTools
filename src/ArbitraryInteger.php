@@ -15,7 +15,7 @@ class ArbitraryInteger
 
     public static function fact($int): ArbitraryInteger
     {
-        if($int == 1) {
+        if ($int == 1) {
             return 1;
         } else {
             return $int->multiply($int - 1);
@@ -153,7 +153,6 @@ class ArbitraryInteger
      */
     public function intdiv($divisor): array
     {
-        
     }
 
     public function add($number)
