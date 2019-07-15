@@ -13,7 +13,7 @@ class ArbitraryInteger
     const RFC3548_BASE16 = '0123456789ABCDEF';
     const RFC3548_BASE64 = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/';
 
-    static function fact($int): ArbitraryInteger
+    public static function fact($int): ArbitraryInteger
     {
         if($int == 1) {
             return 1;
@@ -21,6 +21,25 @@ class ArbitraryInteger
             return $int->multiply($int - 1);
         }
     }
+
+    protected static function getDefaultAlphabet($base): array
+    {
+        switch ($base) {
+            case 2:
+            case 8:
+            case 10:
+                $offset = '0';
+                break;
+            case 16:
+                $offset = '0123456789abcdef';
+                break;
+            default:
+                $offset = chr(0);
+                break;
+        }
+        return $offset;
+    }
+
     /**
      * Constructor
      *
@@ -114,17 +133,24 @@ class ArbitraryInteger
 
     public function toBase(int $base, $alphabet = null): string
     {
-        // check that base is less than 256
-        // Check that the alphabet has the right number of chars.
+        if ($alphabet === null) {
+            $alphabet = self::getDefaultAlphabet($base);
+        } else {
+            // check that base is less than 256
+            // Check that the alphabet has the right number of chars.
+        }
         $result = '';
         $int = new ArbitraryInteger($this->base256, 256);
         while ($int > 0 && $mod > 0) {
             list($int, $mod) = $int->intdiv($base);
-            $result = chr($mod) . $result;
+            $result = $alphabet[$mod] . $result;
         }
-        return $result
+        return $result;
     }
 
+    /**
+     * For divisors less than 256
+     */
     public function intdiv($divisor): array
     {
         
