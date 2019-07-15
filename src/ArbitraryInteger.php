@@ -13,6 +13,14 @@ class ArbitraryInteger
     const RFC3548_BASE16 = '0123456789ABCDEF';
     const RFC3548_BASE64 = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/';
 
+    static function fact($int): ArbitraryInteger
+    {
+        if($int == 1) {
+            return 1;
+        } else {
+            return $int->multiply($int - 1);
+        }
+    }
     /**
      * Constructor
      *
