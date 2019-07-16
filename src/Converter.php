@@ -129,6 +129,13 @@ class Converter
      */
     public static function toCashaddr(string $address): string
     {
+        /**
+        $addr = new ArbitraryInteger($address, 58, self::ALPHABET);
+        $base16 = str_pad($addr->toBase(16, ArbitraryInteger::RFC3548_BASE16), 50, "0", STR_PAD_LEFT);
+        $base16 = substr($base16, 2, -8);
+        $base32 = new ArbitraryInteger($base16, 16, ArbitraryInteger::RFC3548_BASE16);
+        $base32->leftShift(2)->toBase(32, self::CHARSET);
+        */
         // check if legacy format
         $len = strlen($address);
 
